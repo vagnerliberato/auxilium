@@ -13,7 +13,15 @@
     </head>
     <body>
     <center>
-        <h1>Auxilium</h1>
+        <form name="Form" method="POST" action="TestConexao">
+            <h1>Auxilium</h1>
+            <input type="submit" value="Testar Conexão">
+        </form>
+        
+        <%= (request.getAttribute("conexao") != null ? request.getAttribute("conexao") : "") %>
+        <br>
+        <%= (request.getAttribute("sgbd") != null ? request.getAttribute("sgbd") : "") %>
+        
     </center>
 </body>
 </html>
