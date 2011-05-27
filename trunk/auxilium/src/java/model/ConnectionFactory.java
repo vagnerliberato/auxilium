@@ -4,8 +4,7 @@
  * Autor       : arthemus
  * Descrição   : Classe java para conexão com os sgbd sql server, mysql e firebird.
  * Modificação : 14/05/2011, 15:56:33
-*/
-
+ */
 package model;
 
 import java.sql.*;
@@ -35,23 +34,30 @@ public class ConnectionFactory {
                 senha = "carol";
                 sgbd = "SQL-Server";
                 break;
+            case 3: //Firebird 
+                driver = "org.firebirdsql.jdbc.FBDriver";
+                url = "jdbc:firebirdsql:localhost/3060:C:/ArvoreDeTrabalho/Softland Sistemas/auxilium/trunk/banco/AUXILIUM.FDB";
+                login = "sysdba";
+                senha = "masterkey";
+                sgbd = "Firebird";
+                break;
         }
 
         try {
             Class.forName(driver);
-            
+
             Connection con = DriverManager.getConnection(url, login, senha);
-            
+
             return con;
-            
+
         } catch (ClassNotFoundException erro) {
             return null;
         } catch (SQLException erro) {
             return null;
         }
     }
-    
+
     public static String getSgbd() {
         return sgbd;
-    } 
+    }
 }
