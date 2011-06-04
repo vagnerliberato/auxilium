@@ -1,5 +1,5 @@
 /*
- * Documento   : ServletTestConexao.java
+ * Documento   : ServletTesteConexao.java
  * Criação     : 25/05/2011, 21:30:15
  * Autor       : arthemus
  * Descrição   : Classe para testes de conexão utilizando a classe ConnectionFactory. 
@@ -16,11 +16,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.ConnectionFactory;
 
-public class ServletTestConexao extends HttpServlet {
+public class ServletTesteConexao extends HttpServlet {
 
     private Connection conexao = null;
 
-    public ServletTestConexao() {
+    public ServletTesteConexao() {
         this.conexao = ConnectionFactory.getConnection(3);
     }
 

@@ -36,9 +36,9 @@ public class ConnectionFactory {
                 break;
             case 3: //Firebird 
                 driver = "org.firebirdsql.jdbc.FBDriver";
-                url = "jdbc:firebirdsql:localhost/3060:C:/ArvoreDeTrabalho/Softland Sistemas/auxilium/trunk/banco/AUXILIUM.FDB";
-                login = "sysdba";
-                senha = "masterkey";
+                url = "jdbc:firebirdsql:192.168.1.120/3060:D:/Bancos/Agenda/AGENDA.FDB";
+                login = "SYSDBA";
+                senha = "buana";
                 sgbd = "Firebird";
                 break;
         }
