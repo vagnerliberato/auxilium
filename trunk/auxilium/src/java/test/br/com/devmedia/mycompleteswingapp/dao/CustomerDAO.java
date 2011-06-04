@@ -1,3 +1,4 @@
+package test.br.com.devmedia.mycompleteswingapp.dao;
 
 import test.br.com.devmedia.mycompleteswingapp.entity.*;
 import java.sql.ResultSet;
