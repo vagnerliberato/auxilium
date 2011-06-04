@@ -1,0 +1,47 @@
+/* Inicio - Arthemus - 04/06/2011 */
+
+CREATE TABLE conhecimento (
+     id_conhecimento integer not null
+    ,analista char(2) not null
+    ,referencia char(15) not null
+    ,fato varchar(500) not null
+    ,esclarecimento varchar(500) not null
+    ,visual integer not null
+    ,campo T_CAMPO
+    ,data date not null
+);    
+    
+ALTER TABLE conhecimento ADD CONSTRAINT PK_conhecimento PRIMARY KEY (id_conhecimento);
+ALTER TABLE conhecimento ADD CONSTRAINT FK_conhecimento_analista FOREIGN KEY (analista) REFERENCES analista (codigo);
+
+COMMENT ON COLUMN conhecimento.analista IS 
+'usuário que realizou o cadastro da base de conhecimento.';
+
+COMMENT ON COLUMN conhecimento.referencia IS 
+'do que se trata o registro de conhecimento que esta sendo cadastrado. pode ser o nome de um cliente, um aviso, erro de sistema ou dica.';
+
+COMMENT ON COLUMN conhecimento.fato IS 
+'qualquer acontecimento ou informação que se deseje compartilhar.';
+
+COMMENT ON COLUMN conhecimento.esclarecimento IS 
+'solução ou detalhes do fato descrito.';
+
+create table tag (
+     id_tag integer not null
+    ,nome varchar(10) not null 
+);
+
+alter table tag add constraint pk_tag primary key (id_tag);
+
+COMMENT ON COLUMN tag.nome IS 
+'palavra-chave ou termo associado a uma informação.';
+
+create table controletag (
+     id_conhecimento integer not null
+    ,id_tag integer not null 
+);
+
+alter table controletag add constraint fk_controletag_conhecimento foreign key (id_conhecimento) references conhecimento (id_conhecimento);
+alter table controletag add constraint fk_controletag_tag foreign key (id_tag) references tag (id_tag);
+
+commit work;
