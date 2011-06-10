@@ -1,5 +1,4 @@
-
-package test.br.com.devmedia.mycompleteswingapp.dao;
+package br.com.softland.auxilium.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,32 +6,45 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.naming.spi.DirStateFactory.Result;
 
 public abstract class GenericDAO {
 
+    private static String driver = null;
+    private static String url = null;
+    private static String login = null;
+    private static String senha = null;
+    private static String sgbd = null;
 
-    public Connection getConnection(){
+    public GenericDAO() {
+        driver = "org.firebirdsql.jdbc.FBDriver";
+        url = "jdbc:firebirdsql:192.168.1.120/3060:D:/Bancos/Agenda/AGENDA.FDB";
+        login = "SYSDBA";
+        senha = "buana";
+        sgbd = "Firebird";
+    }
+
+    public Connection getConnection() {
+
         try {
-            Class.forName("org.apache.derby.jdbc.ClientDriver");
-            Connection cx = DriverManager.getConnection("jdbc:derby://localhost:1527/petshop", "petshop", "petshop");
-            return cx;
-        } catch (Exception ex) {
-            Logger.getLogger(GenericDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Class.forName(driver);
+            Connection con = DriverManager.getConnection(url, login, senha);
+            return con;
+
+        } catch (ClassNotFoundException erro) {
+            return null;
+        } catch (SQLException erro) {
             return null;
         }
     }
 
-    public Statement getStatement() throws SQLException{
+    public Statement getStatement() throws SQLException {
         return getConnection().createStatement();
     }
 
-    public PreparedStatement getStatement(String st) throws SQLException{
+    public PreparedStatement getStatement(String st) throws SQLException {
         return getConnection().prepareStatement(st);
     }
-
+    
     //O object pode receber varios parametros. É um Array que pode ser nulo ou receber vários parâmetros (varargs).
     public ResultSet executeQuery(String query, Object... params) throws SQLException{
         PreparedStatement ps = getStatement(query);
@@ -52,8 +64,8 @@ public abstract class GenericDAO {
         return result;
     }
 
-    public Integer getNextId(String tableName) throws SQLException{
-        ResultSet rs = executeQuery("select Max(ID) from APP."+tableName);
+    public Integer getNextId(String tableName, String id) throws SQLException{
+        ResultSet rs = executeQuery("select Max("+id+" from "+tableName);
         Object result = rs.getObject(1);
         if(result == null){
             rs.close();
