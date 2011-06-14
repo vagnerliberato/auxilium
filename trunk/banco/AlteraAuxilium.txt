@@ -1,4 +1,4 @@
-/* Inicio - Arthemus - 04/06/2011 */
+/* Inicio - Arthemus - 14/06/2011 */
 
 CREATE TABLE conhecimento (
      id_conhecimento integer not null
@@ -7,8 +7,9 @@ CREATE TABLE conhecimento (
     ,fato varchar(500) not null
     ,esclarecimento varchar(500) not null
     ,visual integer not null
-    ,campo T_CAMPO
+    ,campo varchar(35) not null
     ,data date not null
+	,arquivo varchar(255) null
 );    
     
 ALTER TABLE conhecimento ADD CONSTRAINT PK_conhecimento PRIMARY KEY (id_conhecimento);
@@ -21,7 +22,7 @@ COMMENT ON COLUMN conhecimento.referencia IS
 'do que se trata o registro de conhecimento que esta sendo cadastrado. pode ser o nome de um cliente, um aviso, erro de sistema ou dica.';
 
 COMMENT ON COLUMN conhecimento.fato IS 
-'qualquer acontecimento ou informação que se deseje compartilhar.';
+'qualquer acontecimento ou informação que se deseja compartilhar.';
 
 COMMENT ON COLUMN conhecimento.esclarecimento IS 
 'solução ou detalhes do fato descrito.';
@@ -45,3 +46,5 @@ alter table controletag add constraint fk_controletag_conhecimento foreign key (
 alter table controletag add constraint fk_controletag_tag foreign key (id_tag) references tag (id_tag);
 
 commit work;
+
+/* Fim - Arthemus - 14/06/2011 */
