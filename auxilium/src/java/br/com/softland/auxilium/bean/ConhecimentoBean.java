@@ -1,6 +1,8 @@
 package br.com.softland.auxilium.bean;
 
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 public class ConhecimentoBean {
    private int Id_Conhecimento = 0;
@@ -11,6 +13,15 @@ public class ConhecimentoBean {
    private int Visual = 0;
    private String Campo = null;
    private Date Data = new Date();
+   private List<TagBean> tags = new LinkedList<TagBean>();
+
+    public List<TagBean> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<TagBean> tags) {
+        this.tags = tags;
+    }
 
     public String getAnalista() {
         return Analista;
