@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
+
+    <h:head>
+        <title>Softland</title>
+    </h:head>
+    <h:body>
+        <h:form id="FormIndex">
+            <h3>Base de Conhecimento</h3>
+            <br/>
+            <p:commandLink onclick="#{testeConexao.TestarConexaoComAgenda()}" actionListener="#{testeConexao.TestarConexaoComAgenda()}"
+                           value="Testar Conexão" 
+                           oncomplete="dlgConexao.show()" 
+                           title="Testar conexão com Agenda"/>
+            |
+
+            <h:commandLink action="//cadConhecimento.xhtml" 
+                           value="Novo Conhecimento" 
+                           title="Cadastrar um novo Conhecimento"/>  
+
+            <br />
+            <br />
+
+            <p:dialog header="Conexão" 
+                      widgetVar="dlgConexao" 
+                      hideEffect="true" 
+                      showEffect="true"
+                      modal="true" 
+                      height="100" 
+                      width="500">  
+                <h:outputText value="#{testeConexao.conexao}" escape="false"/>  
+            </p:dialog>
+
+        </h:form> 
+    </h:body>
+</html>
+
