@@ -2,16 +2,28 @@ package br.com.softland.dthelp.bean.conhecimento;
 
 import java.util.Date;
 
-public class ConhecimentoBean {
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
-    private int Id_Conhecimento = 0;
-    private String Analista = null;
-    private String Referencia = null;
-    private String Fato = null;
-    private String Esclarecimento = null;
-    private int Visual = 0;
-    private String Campo = null;
-    private Date Data = new Date();
+public class ConhecimentoBean {
+   private int Id_Conhecimento = 0;
+   private String Analista = null;
+   private String Referencia = null;
+   private String Fato = null;
+   private String Esclarecimento = null;
+   private int Visual = 0;
+   private String Campo = null;
+   private Date Data = new Date();
+   private List<TagBean> tags = new LinkedList<TagBean>();
+
+    public List<TagBean> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<TagBean> tags) {
+        this.tags = tags;
+    }
 
     public String getAnalista() {
         return Analista;
@@ -77,3 +89,4 @@ public class ConhecimentoBean {
         this.Visual = Visual;
     }
 }
+
