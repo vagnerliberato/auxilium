@@ -7,35 +7,58 @@
 
     <h:head>
         <title>Softland</title>
+
+        <style type="text/css">  
+            .ui-widget {  
+                font-size: 12px !important;  
+            }  
+        </style> 
+
     </h:head>
+
     <h:body>
-        <h:form id="FormIndex">
-            <h3>Base de Conhecimento</h3>
-            <br/>
-            <p:commandLink onclick="#{testeConexao.TestarConexaoComAgenda()}" actionListener="#{testeConexao.TestarConexaoComAgenda()}"
-                           value="Testar Conexão" 
-                           oncomplete="dlgConexao.show()" 
-                           title="Testar conexão com Agenda"/>
-            |
+        <center>
+            <h:form id="FormIndex">
+                <h3>Base de Conhecimento</h3>
 
-            <h:commandLink action="//cadConhecimento.xhtml" 
-                           value="Novo Conhecimento" 
-                           title="Cadastrar um novo Conhecimento"/>  
+                <p:commandLink   actionListener="#{testeConexao.TestarConexaoComAgenda()}"
+                                 value="Testar Conexão" 
+                                 oncomplete="dlgConexao.show()" 
+                                 title="Testar conexão com Agenda"
+                                 update="conexao"/>
 
-            <br />
-            <br />
+                |
 
-            <p:dialog header="Conexão" 
-                      widgetVar="dlgConexao" 
-                      hideEffect="true" 
-                      showEffect="true"
-                      modal="true" 
-                      height="100" 
-                      width="500">  
-                <h:outputText value="#{testeConexao.conexao}" escape="false"/>  
-            </p:dialog>
+                <p:commandLink   action="cadConhecimento.xhtml" 
+                                 value="Novo Conhecimento" 
+                                 ajax="false"
+                                 title="Cadastrar um novo Conhecimento"/>  
 
-        </h:form> 
+                <p:dialog header="Conexão" 
+                          widgetVar="dlgConexao" 
+                          hideEffect="true" 
+                          showEffect="true"
+                          modal="true" 
+                          height="50" 
+                          width="500">  
+                    <h:outputText id="conexao" value="#{testeConexao.conexao}" escape="false"/>  
+                </p:dialog>
+
+                <br/>
+                <p:separator />
+                <br/>
+
+                <p:panel id="PanelPesquisa">           
+                    <h:outputLabel value="Pesquisar por: "/>
+
+                    <p:autoComplete id="pesquisa" 
+                                    value="#{pesquisa.texto}"
+                                    completeMethod="#{pesquisa.pesquisa}"/>
+
+                    <p:commandButton value="Confirma"
+                                     update="PanelPesquisa"/>
+                </p:panel>
+            </h:form>
+        </center>    
     </h:body>
 </html>
-
