@@ -2,18 +2,77 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" 
       xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.prime.com.tr/ui">
 
     <h:head>
         <title>Softland</title>
+
+        <style type="text/css">  
+            .ui-widget {  
+                font-size: 12px !important;  
+            }  
+        </style> 
     </h:head>
+
     <h:body>
-        <h3>Cadastro de um novo Conhecimento</h3>
-        <h:form>  
+        <center>
 
-            <p:editor value="#{conhecimentoEditorBean.value}" widgetVar="editor" width="600" />  
-            <p:commandLink value="Limpar" onclick="editor.clear();" />
+            <h3>Cadastro de Conhecimentos</h3>
 
-        </h:form>
+            <h:form id="FormConhecimento">   
+
+                <h:panelGrid columns="1">
+
+                    <p:panel id="panel">
+                        <h:outputLabel value="Analista"/>
+
+                        <p:inputText value="#{conhecimentoControl.analista}"/>
+
+                        <br/>
+                        <br/>
+
+                        <h:outputLabel value="Referência"/>       
+
+                        <p:inputText value="#{conhecimentoControl.referencia}"/>
+
+                        <br/>
+                        <br/>
+
+                        <h:outputLabel value="Fato"/>
+
+                        <p:inputTextarea value="#{conhecimentoControl.fato}"/>
+
+                        <br/>
+
+                        <h:outputLabel value="Esclarecimento"/>
+
+                        <p:inputTextarea value="#{conhecimentoControl.esclarecimento}"/>
+
+                        <br/>
+
+                        <p:separator /> 
+
+                        <p:commandButton value="Gravar"
+                                         actionListener="#{conhecimentoControl.validaNovoConhecimento}"
+                                         title="Gravar novo conhecimento"
+                                         update="msgs" />
+
+                        <p:commandButton value="Limpar"
+                                         type="reset"
+                                         title="Limpar todos os campos"/>
+
+                        <p:commandButton value="Sair"
+                                         action="index.xhtml" 
+                                         ajax="false"
+                                         title="Voltar para pagina inicial"/>
+
+                        <br/>
+
+                        <p:messages id="msgs" showDetail="true"/>  
+                    </p:panel>
+                </h:panelGrid>    
+            </h:form>
+        </center>
     </h:body>
 </html>

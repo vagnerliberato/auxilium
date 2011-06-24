@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
+
+    <h:head>
+        <title>Softland</title>
+
+        <style type="text/css">  
+            .ui-widget {  
+                font-size: 12px !important;  
+            }  
+        </style> 
+
+    </h:head>
+
+    <h:body>
+        <center>
+            <h:form id="FormSenha">
+                <h3>Base de Conhecimento</h3>
+
+                <br/>
+                <h:panelGrid columns="2">
+
+                    <h:outputText value="Analista"/>
+                    <p:inputText value="#{senhaController.nome}" 
+                                 id="nome" 
+                                 required="true"
+                                 label="nome"
+                                 title="Analista"/>
+
+                    <h:outputText value="Senha"/>
+                    <h:inputSecret value="#{senhaController.senha}" 
+                                   id="senha"
+                                   required="true"
+                                   label="senha"
+                                   title="Senha"/> 
+                </h:panelGrid>
+
+                <p:commandButton value="Entrar"
+                                 actionListener="#{senhaController.validaAnalista()}"
+                                 oncomplete="dlg.show();"/>
+
+                <p:commandButton value="Limpar"
+                                 type="reset"/>
+
+                <h:outputText value="#{senhaController.erro}"/>
+
+                <!--
+                <p:dialog header="Conexão" 
+                          widgetVar="dlg" 
+                          hideEffect="true" 
+                          showEffect="true"
+                          modal="true" 
+                          height="50" 
+                          width="500">  
+                    <h:outputText value="#{senhaController.erro}" escape="false"/>  
+                </p:dialog>
+                -->
+            </h:form>
+        </center>
+    </h:body>
+</html>
