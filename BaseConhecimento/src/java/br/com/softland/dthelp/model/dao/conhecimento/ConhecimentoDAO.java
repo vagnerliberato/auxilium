@@ -1,7 +1,6 @@
 package br.com.softland.dthelp.model.dao.conhecimento;
 
 import br.com.softland.dthelp.bean.conhecimento.ConhecimentoBean;
-import br.com.softland.dthelp.bean.*;
 import br.com.softland.dthelp.bean.conhecimento.TagBean;
 import br.com.softland.dthelp.model.dao.GenericDAO;
 import java.sql.SQLException;

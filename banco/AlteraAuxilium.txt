@@ -48,3 +48,14 @@ alter table controletag add constraint fk_controletag_tag foreign key (id_tag) r
 commit work;
 
 /* Fim - Arthemus - 14/06/2011 */
+
+/* Inicio - Vagner - 25/06/2011 - Aumentei o tamanho do campo REFERENCIA para 50 caracteres*/
+
+update RDB$FIELDS set
+RDB$FIELD_LENGTH = 50,
+RDB$CHARACTER_LENGTH = 50
+where RDB$FIELD_NAME = 'RDB$537'
+
+commit;
+
+/* Fim - Vagner - 25/06/2011 */
