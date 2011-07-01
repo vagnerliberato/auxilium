@@ -1,7 +1,6 @@
 package br.com.softland.dthelp.bean.conhecimento;
 
 import br.com.softland.dthelp.model.connection.ConexaoAgenda;
-import java.io.Serializable;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -13,13 +12,23 @@ import javax.faces.context.FacesContext;
 @ManagedBean(name = "pesquisa")
 public class PesquisaBean {
 
-    private ArrayList<ConhecimentoBean> dados = new ArrayList<ConhecimentoBean>();
+    private ConhecimentoBean conhecimento;
+    private List<ConhecimentoBean> dados = new ArrayList<ConhecimentoBean>();
     private String referencia = null;
     private boolean visivel = false;
     private String titulo = null;
     private String previa = null;
     private String erro = null;
     private String msg = null;
+    private ConhecimentoBean selecao;
+
+    public ConhecimentoBean getSelecao() {
+        return selecao;
+    }
+
+    public void setSelecao(ConhecimentoBean selecao) {
+        this.selecao = selecao;
+    }
 
     public String getMsg() {
         return msg;
@@ -63,7 +72,7 @@ public class PesquisaBean {
         this.visivel = visivel;
     }
 
-    public ArrayList<ConhecimentoBean> getDados() {
+    public List<ConhecimentoBean> getDados() {
         return dados;
     }
 
@@ -79,7 +88,7 @@ public class PesquisaBean {
         this.referencia = referencia;
     }
 
-    public List<String> pesquisa(String referencia) {
+    public List<String> pesquisaRapida(String referencia) {
 
         List<String> lista = new ArrayList<String>();
 
@@ -93,9 +102,10 @@ public class PesquisaBean {
         return lista;
     }
 
-    public ArrayList<ConhecimentoBean> carregaDados() {
+    public List<ConhecimentoBean> carregaPesquisa() {
         try {
-            String query = "select l.data as data, c.razao as razao, l.comunicado as comunicado, l.descricao as descricao "
+            String query = "select l.data as data, c.razao as razao, "
+                    + "l.comunicado as comunicado, l.descricao as descricao "
                     + " from ligaatende l"
                     + " join clientes c on (l.cliente = c.cod_cli)"
                     + " where l.descricao like ?"
@@ -108,16 +118,13 @@ public class PesquisaBean {
             ResultSet result = stm.executeQuery();
 
             if (result.next()) {
-
-
-
                 while (result.next()) {
-                    ConhecimentoBean con = new ConhecimentoBean();
+                    conhecimento = new ConhecimentoBean();
 
-                    con.setFato(result.getString("descricao"));
-                    con.setReferencia(result.getString("comunicado"));
+                    conhecimento.setFato(result.getString("descricao"));
+                    conhecimento.setReferencia(result.getString("comunicado"));
 
-                    dados.add(con);
+                    dados.add(conhecimento);
                 }
 
                 setVisivel(true);
