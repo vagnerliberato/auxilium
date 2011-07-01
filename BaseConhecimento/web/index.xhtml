@@ -18,8 +18,13 @@
 
     <h:body>
         <center>
-            <h:form id="FormIndex">
+            <h:form id="FormIndex" prependId="false">
                 <h3>Base de Conhecimento</h3>
+
+                <!-- 
+                  Menu principal.
+                  Links para navegação do sistema.
+                -->
 
                 <p:commandLink   actionListener="#{testeConexao.TestarConexaoComAgenda()}"
                                  value="Testar Conexão" 
@@ -34,62 +39,120 @@
                                  ajax="false"
                                  title="Cadastrar um novo Conhecimento"/>  
 
+                |
+
+                <p:commandLink   value="Desenvolvimento" 
+                                 ajax="false"
+                                 title="Testes de Desenvolvimento"/>  
+
+                <!-- Fim Menu -->
+
+                <br/>
+                <p:separator />
+                <br/>
+
+                <!-- Campo de pesquisa -->
+
+                <h:outputLabel value="Pesquisar por: "/>
+
+                <p:autoComplete id="pesquisa" 
+                                value="#{pesquisa.referencia}"
+                                completeMethod="#{pesquisa.pesquisaRapida}"/>
+
+                <p:commandButton value="Confirma"
+                                 actionListener="#{pesquisa.carregaPesquisa}"
+                                 update="conteudo"/>
+
+                <!-- Fim Pesquisa -->
+
+                <br/>
+                <br/>
+
+                <!-- 
+                  Tabela de conhecimento.
+                  Aqui será mostrado todo o conteudo resultante da pesquisa do
+                  usuário.
+                -->
+
+                <p:panel visible="#{pesquisa.visivel}" id="conteudo">
+
+                    <p:dataGrid var="dados" 
+                                value="#{pesquisa.dados}" 
+                                columns="1"     
+                                effect="true">  
+
+                        <p:column>  
+                            <p:panel header="#{dados.referencia}" 
+                                     style="text-align:center">  
+
+                                <h:panelGrid columns="1" 
+                                             style="width:100%">  
+
+                                    <h:outputText value="#{dados.fato}" />  
+
+                                    <br/>
+
+                                    <p:commandLink update="txtDetalhes" 
+                                                   oncomplete="dlgConhecimento.show()" 
+                                                   title="Detalhes do conhecimento"
+                                                   value="+ Detalhes">  
+
+                                        <f:setPropertyActionListener value="#{dados}"   
+                                                                     target="#{pesquisa.selecao}" />
+                                    </p:commandLink>  
+                                </h:panelGrid>  
+                            </p:panel>  
+                        </p:column>  
+
+                    </p:dataGrid>
+                </p:panel>
+
+                <!-- Fim Tabela -->
+
+                <!-- 
+                  Dialogs. 
+                  Janelas de informação ao usuário 
+                -->
+
                 <p:dialog header="Conexão" 
                           widgetVar="dlgConexao" 
                           hideEffect="true" 
                           showEffect="true"
                           modal="true" 
                           height="50" 
-                          width="500">  
+                          width="500">
+
                     <h:outputText id="conexao" value="#{testeConexao.conexao}" escape="false"/>  
                 </p:dialog>
 
-                <br/>
-                <p:separator />
-                <br/>
-
-                <h:outputLabel value="Pesquisar por: "/>
-
-                <p:autoComplete id="pesquisa" 
-                                value="#{pesquisa.referencia}"
-                                completeMethod="#{pesquisa.pesquisa}"/>
-
-                <p:commandButton value="Confirma"
-                                 actionListener="#{pesquisa.carregaDados}"
-                                 update="conteudo"/>
-
-                <br/>
-                <br/>
-
-                <p:panel visible="#{pesquisa.visivel}" id="conteudo">
-                    
-                    <p:dataTable var="dados" value="#{pesquisa.dados}" paginator="true" rows="10">  
-                        <p:column headerText="#{dados.referencia}">
-                            
-                            <h:outputText value="#{dados.fato}" />
-
-                            <br/>
-                            <br/>
-
-                            <b> <p:commandLink value="+ Detalhes" 
-                                               oncomplete="Dialog.show()" 
-                                               update="detalhes"/> </b>  
-                        </p:column>  
-                    </p:dataTable>  
-                </p:panel>
-
                 <p:dialog header="Conhecimento" 
-                          widgetVar="Dialog" 
+                          widgetVar="dlgConhecimento" 
                           hideEffect="true" 
                           showEffect="true"
                           modal="true" 
                           height="500" 
                           width="500">  
 
-                    <h:outputText id="detalhes" value="#{dados.fato}" escape="false"/>  
+                    <p:outputPanel id="pnlDetalhes" style="text-align:center;" layout="block">    
+                        <h:panelGrid  columns="2" cellpadding="5">  
+                            <h:outputLabel for="fato" value="Fato: " />  
+                            <h:outputText id="fato" value="#{pesquisa.selecao.fato}" />   
+                        </h:panelGrid>  
+                    </p:outputPanel> 
                 </p:dialog>
 
+                <!-- Fim Dialogs -->
+
+                <!-- 
+                  Mensagens informativas do próprio sistema sobre erros, 
+                  problemas de conexão ou Exceptions que ocorrão na tela 
+                  principal do sistema 
+                -->
+
                 <p:messages id="msgs" showDetail="true"/>
+
+                <!-- Fim Mensagens -->
+
             </h:form>
         </center>    
     </h:body>
