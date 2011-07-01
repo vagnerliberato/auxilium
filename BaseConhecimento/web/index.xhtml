@@ -48,16 +48,48 @@
                 <p:separator />
                 <br/>
 
-                <p:panel id="PanelPesquisa">           
-                    <h:outputLabel value="Pesquisar por: "/>
+                <h:outputLabel value="Pesquisar por: "/>
 
-                    <p:autoComplete id="pesquisa" 
-                                    value="#{pesquisa.texto}"
-                                    completeMethod="#{pesquisa.pesquisa}"/>
+                <p:autoComplete id="pesquisa" 
+                                value="#{pesquisa.referencia}"
+                                completeMethod="#{pesquisa.pesquisa}"/>
 
-                    <p:commandButton value="Confirma"
-                                     update="PanelPesquisa"/>
+                <p:commandButton value="Confirma"
+                                 actionListener="#{pesquisa.carregaDados}"
+                                 update="conteudo"/>
+
+                <br/>
+                <br/>
+
+                <p:panel visible="#{pesquisa.visivel}" id="conteudo">
+                    
+                    <p:dataTable var="dados" value="#{pesquisa.dados}" paginator="true" rows="10">  
+                        <p:column headerText="#{dados.referencia}">
+                            
+                            <h:outputText value="#{dados.fato}" />
+
+                            <br/>
+                            <br/>
+
+                            <b> <p:commandLink value="+ Detalhes" 
+                                               oncomplete="Dialog.show()" 
+                                               update="detalhes"/> </b>  
+                        </p:column>  
+                    </p:dataTable>  
                 </p:panel>
+
+                <p:dialog header="Conhecimento" 
+                          widgetVar="Dialog" 
+                          hideEffect="true" 
+                          showEffect="true"
+                          modal="true" 
+                          height="500" 
+                          width="500">  
+
+                    <h:outputText id="detalhes" value="#{dados.fato}" escape="false"/>  
+                </p:dialog>
+
+                <p:messages id="msgs" showDetail="true"/>
             </h:form>
         </center>    
     </h:body>

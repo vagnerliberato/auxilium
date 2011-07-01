@@ -1,12 +1,11 @@
 package br.com.softland.dthelp.bean.conhecimento;
 
 import java.util.Date;
-
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
 public class ConhecimentoBean {
+    
    private int Id_Conhecimento = 0;
    private String Analista = null;
    private String Referencia = null;

@@ -6,7 +6,6 @@ import java.util.Date;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
 
 @ManagedBean(name = "conhecimentoControl")
 public class ConhecimentoController {
@@ -88,13 +87,13 @@ public class ConhecimentoController {
                 int gravacao = dao.addConhecimento(novo);
 
                 if (gravacao < 0) {
-                    setErro("Erro","Não conseguiu grava novo conhecimento. \n Tente novamente.");
+                    setErro("Erro","Não consegui grava novo conhecimento. \n Tente novamente.");
                 } else {
-                    setSucesso("Aeee","Conhecimento gravado com sucesso");
+                    setSucesso("OK","Conhecimento gravado com sucesso!");
                 }
 
             } catch (Exception e) {
-                setErro("Erro", e.getMessage());
+                setErro("Erro-Fatal", e.getMessage());
             }
         }
     }
