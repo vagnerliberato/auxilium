@@ -7,20 +7,22 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 @ManagedBean(name = "pesquisa")
+@ViewScoped
 public class PesquisaBean {
 
-    private ConhecimentoBean conhecimento;
     private List<ConhecimentoBean> dados = new ArrayList<ConhecimentoBean>();
-    private String referencia = null;
+    private ConhecimentoBean selecao = new ConhecimentoBean();
+    
+    private String pesquisa = null;
     private boolean visivel = false;
     private String titulo = null;
     private String previa = null;
     private String erro = null;
-    private String msg = null;
-    private ConhecimentoBean selecao;
+    private String msg = null;    
 
     public ConhecimentoBean getSelecao() {
         return selecao;
@@ -80,12 +82,12 @@ public class PesquisaBean {
         this.dados = dados;
     }
 
-    public String getReferencia() {
-        return referencia;
+    public String getPesquisa() {
+        return pesquisa;
     }
 
-    public void setReferencia(String referencia) {
-        this.referencia = referencia;
+    public void setPesquisa(String pesquisa) {
+        this.pesquisa = pesquisa;
     }
 
     public List<String> pesquisaRapida(String referencia) {
@@ -104,26 +106,31 @@ public class PesquisaBean {
 
     public List<ConhecimentoBean> carregaPesquisa() {
         try {
-            String query = "select l.data as data, c.razao as razao, "
+            String query = "select l.data as data, c.razao as razao, l.solucao as solucao, "
                     + "l.comunicado as comunicado, l.descricao as descricao "
                     + " from ligaatende l"
                     + " join clientes c on (l.cliente = c.cod_cli)"
                     + " where l.descricao like ?"
-                    + " order by l.data";
+                    + " order by l.data desc";
 
             PreparedStatement stm = ConexaoAgenda.getConnection().prepareStatement(query);
 
-            stm.setString(1, "%" + getReferencia() + "%");
+            stm.setString(1, "%" + getPesquisa() + "%");
 
             ResultSet result = stm.executeQuery();
 
             if (result.next()) {
+                
+                dados.clear();
+                
                 while (result.next()) {
-                    conhecimento = new ConhecimentoBean();
+                    ConhecimentoBean conhecimento = new ConhecimentoBean();
 
                     conhecimento.setFato(result.getString("descricao"));
-                    conhecimento.setReferencia(result.getString("comunicado"));
-
+                    conhecimento.setReferencia(result.getString("descricao"));
+                    conhecimento.setData(result.getDate("data"));
+                    conhecimento.setEsclarecimento(result.getString("solucao"));
+                    
                     dados.add(conhecimento);
                 }
 

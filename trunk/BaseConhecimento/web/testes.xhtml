@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>TODO supply a title</title>
+    </head>
+    <body>
+    <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"  
+                    xmlns:p="http://primefaces.prime.com.tr/ui"  
+                    xmlns:h="http://java.sun.com/jsf/html"  
+                    xmlns:f="http://java.sun.com/jsf/core"  
+                    template="./resources/templates/indexTemplate.xhtml">  
+
+        <ui:define name="content">  
+            <h:form prependId="false">  
+                <p:panel style="width: 800px;text-align: center">  
+                    <p:ajaxStatus>  
+                        <f:facet name="start">  
+                            <p:graphicImage value="./resources/imagens/ajax-loader.gif"/>  
+                        </f:facet>  
+                        <f:facet name="complete">  
+                            <h:outputText value=""/>  
+                        </f:facet>  
+                    </p:ajaxStatus>  
+                    <p:spacer height="10"/>  
+                    <p:outputPanel id="gridTime">  
+                        <p:dataGrid id="dataGridTimes" paginator="true" value="#{indexController.timesFutebol}"  
+                                    var="time" columns="3" rows="12"  
+                                    effect="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                    rowsPerPageTemplate="4,8,12" style="vertical-align: top;">  
+                            <p:column>  
+                                <p:panel header="#{time.nome}">  
+                                    <h:panelGrid columns="1" style="width:200px;height: 200px">  
+                                        <p:graphicImage value="./resources/imagens/#{time.logo}"/>  
+                                        <h:outputText value="#{time.nome}"/>  
+                                        <h:column>  
+                                            <p:commandLink update="timeDetalhe" oncomplete="timeDialogDetalhe.show()" title="Ver Detalhes">  
+                                                <p:graphicImage value="resources/imagens/imgLupa.png" style="border: none"/>  
+                                                <f:setPropertyActionListener value="#{time}"  
+                                                                             target="#{indexController.timeSelecionado}" />  
+                                            </p:commandLink>  
+                                            <p:commandLink update="timeEdita" oncomplete="timeDialogEdita.show()" title="Editar Dados">  
+                                                <p:graphicImage value="resources/imagens/imgEdit.png" style="border: none"/>  
+                                                <f:setPropertyActionListener value="#{time}"  
+                                                                             target="#{indexController.timeSelecionado}" />  
+                                            </p:commandLink>  
+                                            <p:commandLink title="Dados">  
+                                                <p:graphicImage value="resources/imagens/imgDel.png" style="border: none"/>  
+                                                <f:setPropertyActionListener value="#{time}"  
+                                                                             target="#{indexController.timeSelecionado}" />  
+                                            </p:commandLink>  
+                                        </h:column>  
+                                    </h:panelGrid>  
+                                </p:panel>  
+                            </p:column>  
+                        </p:dataGrid>  
+                    </p:outputPanel>  
+                </p:panel>  
+                <p:dialog header="Detalhes do Clube" widgetVar="timeDialogDetalhe" width="400" height="350" modal="true">  
+                    <p:outputPanel id="timeDetalhe">  
+                        <h:outputText value="#{indexController.timeSelecionado.nome}" style="font-size: 16px;font-weight: bold"/>  
+                        <h:panelGrid  columns="2" cellpadding="5">  
+                            <h:outputLabel for="mascote" value="Mascote:" styleClass="campo" />  
+                            <p:graphicImage id="mascote" value="./resources/imagens/#{indexController.timeSelecionado.mascote}"/>  
+                            <h:outputLabel for="fundacao" value="Fundação: " styleClass="campo" />  
+                            <h:outputText id="fundacao" value="#{indexController.timeSelecionado.fundacao}"/>  
+                            <h:outputLabel for="endereco" value="Endereço: " styleClass="campo" />  
+                            <h:outputText id="endereco" value="#{indexController.timeSelecionado.endereco}"/>  
+                            <h:outputLabel for="site" value="Site: " styleClass="campo" />  
+                            <p:commandLink id="site" value="#{indexController.timeSelecionado.site}"/>  
+                        </h:panelGrid>  
+                    </p:outputPanel>  
+                </p:dialog>  
+                <p:dialog header="Dados" widgetVar="timeDialogEdita" width="400" height="350" modal="true">  
+                    <p:outputPanel id="timeEdita">  
+                        <p:messages/>  
+                        <h:panelGrid  columns="2" cellpadding="5">  
+                            <h:outputLabel value="Nome:" styleClass="campo" />  
+                            <h:inputText value="#{indexController.timeSelecionado.nome}" style="width: 250px"/>  
+                            <h:outputLabel value="Logomarca:" styleClass="campo" />  
+                            <h:inputText value="#{indexController.timeSelecionado.logo}"/>  
+                            <h:outputLabel value="Mascote:" styleClass="campo" />  
+                            <h:inputText value="#{indexController.timeSelecionado.mascote}"/>  
+                            <h:outputLabel value="Fundação: " styleClass="campo" />  
+                            <h:inputText value="#{indexController.timeSelecionado.fundacao}" style="width: 200px"/>  
+                            <h:outputLabel value="Endereço: " styleClass="campo" />  
+                            <h:inputTextarea value="#{indexController.timeSelecionado.endereco}" style="width: 200px"/>  
+                            <h:outputLabel value="Site: " styleClass="campo" />  
+                            <h:inputText value="#{indexController.timeSelecionado.site}" style="width: 200px"/>  
+                        </h:panelGrid>  
+                        <p:commandButton id="botaoSalvar" value="Salvar Dados" image="ui-icon-disk" actionListener="#{indexController.salvaTimeFutebol}" update="gridTime timeEdita"/>  
+                    </p:outputPanel>  
+                </p:dialog>  
+            </h:form>  
+        </ui:define>  
+
+    </ui:composition>  
+</body>
+</html>

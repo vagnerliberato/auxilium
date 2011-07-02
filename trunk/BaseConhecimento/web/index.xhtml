@@ -19,6 +19,7 @@
     <h:body>
         <center>
             <h:form id="FormIndex" prependId="false">
+
                 <h3>Base de Conhecimento</h3>
 
                 <!-- 
@@ -55,13 +56,22 @@
 
                 <h:outputLabel value="Pesquisar por: "/>
 
-                <p:autoComplete id="pesquisa" 
-                                value="#{pesquisa.referencia}"
-                                completeMethod="#{pesquisa.pesquisaRapida}"/>
+                <p:inputText id="pesquisa"
+                             value="#{pesquisa.pesquisa}"/>
 
                 <p:commandButton value="Confirma"
                                  actionListener="#{pesquisa.carregaPesquisa}"
                                  update="conteudo"/>
+
+                <p:ajaxStatus>  
+                    <f:facet name="start">  
+                        <h:outputText value="Processando..." />   
+                    </f:facet>  
+
+                    <f:facet name="complete">  
+                        <h:outputText value="" />  
+                    </f:facet>  
+                </p:ajaxStatus>
 
                 <!-- Fim Pesquisa -->
 
@@ -74,38 +84,51 @@
                   usuário.
                 -->
 
-                <p:panel visible="#{pesquisa.visivel}" id="conteudo">
+                <p:dataGrid var="item" 
+                            value="#{pesquisa.dados}" 
+                            columns="1"     
+                            effect="true" 
+                            id="conteudo">  
 
-                    <p:dataGrid var="dados" 
-                                value="#{pesquisa.dados}" 
-                                columns="1"     
-                                effect="true">  
+                    <p:column>  
+                        <p:panel header="#{item.data}" 
+                                 style="text-align:center"
+                                 toggleable="true"
+                                 toggleSpeed="500">  
 
-                        <p:column>  
-                            <p:panel header="#{dados.referencia}" 
-                                     style="text-align:center">  
+                            <h:panelGrid columns="1" 
+                                         style="width:100%">  
 
-                                <h:panelGrid columns="1" 
-                                             style="width:100%">  
+                                <h:outputText value="#{item.referencia}" />  
 
-                                    <h:outputText value="#{dados.fato}" />  
+                                <br/>
 
-                                    <br/>
+                                <p:commandLink update="pnlDetalhes" 
+                                               oncomplete="dlgConhecimento.show()" 
+                                               title="Detalhes do conhecimento"
+                                               value="+ Detalhes">  
 
-                                    <p:commandLink update="txtDetalhes" 
-                                                   oncomplete="dlgConhecimento.show()" 
-                                                   title="Detalhes do conhecimento"
-                                                   value="+ Detalhes">  
+                                    <f:setPropertyActionListener value="#{item}"   
+                                                                 target="#{pesquisa.selecao}" />
+                                </p:commandLink>  
+                            </h:panelGrid>
 
-                                        <f:setPropertyActionListener value="#{dados}"   
-                                                                     target="#{pesquisa.selecao}" />
-                                    </p:commandLink>  
-                                </h:panelGrid>  
-                            </p:panel>  
-                        </p:column>  
+                            <f:facet name="options">  
+                                <p:menu>  
+                                    <p:submenu label="Opções">  
+                                        <p:menuitem value="Visualizar Fato Completo"
+                                                    update="pnlDetalhes"
+                                                    onclick="dlgConhecimento.show()"> 
 
-                    </p:dataGrid>
-                </p:panel>
+                                            <f:setPropertyActionListener value="#{item}"   
+                                                                         target="#{pesquisa.selecao}" />
+                                        </p:menuitem>
+                                    </p:submenu>  
+                                </p:menu>  
+                            </f:facet>
+                        </p:panel>  
+                    </p:column>
+                </p:dataGrid>
 
                 <!-- Fim Tabela -->
 
@@ -133,10 +156,17 @@
                           height="500" 
                           width="500">  
 
-                    <p:outputPanel id="pnlDetalhes" style="text-align:center;" layout="block">    
+                    <p:outputPanel id="pnlDetalhes" style="text-align:left;">    
                         <h:panelGrid  columns="2" cellpadding="5">  
-                            <h:outputLabel for="fato" value="Fato: " />  
-                            <h:outputText id="fato" value="#{pesquisa.selecao.fato}" />   
+                            <h:outputLabel for="fato" value="Fato: " styleClass="campo"/>
+                            <br/>
+                            <h:outputText id="fato" value="#{pesquisa.selecao.fato}" />
+                            <br/>
+                            <p:separator />
+                            <br/>                           
+                            <h:outputLabel for="solucao" value="Esclarecimento: " styleClass="campo"/>  
+                            <br/>
+                            <h:outputText id="esclarecimento" value="#{pesquisa.selecao.esclarecimento}" /> 
                         </h:panelGrid>  
                     </p:outputPanel> 
                 </p:dialog>
