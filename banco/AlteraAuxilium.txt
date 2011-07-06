@@ -9,7 +9,7 @@ CREATE TABLE conhecimento (
     ,visual integer not null
     ,campo varchar(35) not null
     ,data date not null
-	,arquivo varchar(255) null
+    ,arquivo varchar(255)
 );    
     
 ALTER TABLE conhecimento ADD CONSTRAINT PK_conhecimento PRIMARY KEY (id_conhecimento);
@@ -51,10 +51,8 @@ commit work;
 
 /* Inicio - Vagner - 25/06/2011 - Aumentei o tamanho do campo REFERENCIA para 50 caracteres*/
 
-update RDB$FIELDS set
-RDB$FIELD_LENGTH = 50,
-RDB$CHARACTER_LENGTH = 50
-where RDB$FIELD_NAME = 'RDB$537'
+update RDB$FIELDS set RDB$FIELD_LENGTH = 50, RDB$CHARACTER_LENGTH = 50
+where RDB$FIELD_NAME = 'RDB$537';
 
 commit;
 
