@@ -21,19 +21,20 @@
             <h3>Cadastro de Conhecimentos</h3>
 
             <h:form id="FormConhecimento">   
-
-                <h:panelGrid columns="1">
-
+                <h:panelGrid columns="2">
                     <p:panel id="panel">
                         <h:outputLabel value="Analista"/>
+                        <p:spacer width="10"/>
 
-                        <p:inputText value="#{conhecimentoControl.analista}"/>
+                        <h:selectOneMenu value="#{conhecimentoControl.analista}">
+                            <f:selectItems value="#{conhecimentoControl.analistas}"/>
+                        </h:selectOneMenu>
 
                         <br/>
                         <br/>
 
                         <h:outputLabel value="Referência"/>       
-
+                        <p:spacer width="10"/>
                         <p:inputText value="#{conhecimentoControl.referencia}"/>
 
                         <br/>
@@ -51,14 +52,22 @@
 
                         <br/>
 
+                        <h:outputLabel value="Arquivo: "/>
+                        <p:spacer width="10"/>
+                        <p:inputText value="#{conhecimentoControl.arquivo}"/>  
+
+                        <br/>
+                        <br/>
+
                         <p:separator /> 
 
                         <p:commandButton value="Gravar"
                                          actionListener="#{conhecimentoControl.validaNovoConhecimento}"
                                          title="Gravar novo conhecimento"
-                                         update="msgs" />
+                                         update="msgs"/>
 
-                        <p:commandButton value="Limpar"
+                        <p:commandButton id="btnLimpar"
+                                         value="Limpar"
                                          type="reset"
                                          title="Limpar todos os campos"/>
 
@@ -66,12 +75,10 @@
                                          action="index.xhtml" 
                                          ajax="false"
                                          title="Voltar para pagina inicial"/>
-
-                        <br/>
-
-                        <p:messages id="msgs" showDetail="true"/>  
                     </p:panel>
-                </h:panelGrid>    
+                </h:panelGrid>   
+
+                <p:messages id="msgs" showDetail="true"/>  
             </h:form>
         </center>
     </h:body>

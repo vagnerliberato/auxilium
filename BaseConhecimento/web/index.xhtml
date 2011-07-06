@@ -27,24 +27,26 @@
                   Links para navegação do sistema.
                 -->
 
-                <p:commandLink   actionListener="#{testeConexao.TestarConexaoComAgenda()}"
-                                 value="Testar Conexão" 
-                                 oncomplete="dlgConexao.show()" 
-                                 title="Testar conexão com Agenda"
-                                 update="conexao"/>
-
-                |
-
                 <p:commandLink   action="cadConhecimento.xhtml" 
-                                 value="Novo Conhecimento" 
+                                 value="+ Conhecimento" 
                                  ajax="false"
-                                 title="Cadastrar um novo Conhecimento"/>  
+                                 title="Cadastrar um novo Conhecimento"
+                                 actionListener="#{conhecimentoControl.carregaAnalistas}"/>  
 
-                |
+                <p:spacer width="10"/>
 
-                <p:commandLink   value="Desenvolvimento" 
+                <p:commandLink   action="atigos.xhtml"
                                  ajax="false"
-                                 title="Testes de Desenvolvimento"/>  
+                                 value="Artigos" 
+                                 title="Artigos diversos, docs, tutorias, apostilas, informativos..."
+                                 disabled="true"/>
+
+                <p:spacer width="10"/>
+
+                <p:commandLink   action="sobre.xhtml"
+                                 value="Sobre" 
+                                 title="Informações sobre a Base de Conhecimento"
+                                 disabled="true"/>
 
                 <!-- Fim Menu -->
 
@@ -54,10 +56,13 @@
 
                 <!-- Campo de pesquisa -->
 
+                <p:focus for="pesquisa"/>
+
                 <h:outputLabel value="Pesquisar por: "/>
 
                 <p:inputText id="pesquisa"
-                             value="#{pesquisa.pesquisa}"/>
+                             value="#{pesquisa.pesquisa}" 
+                             immediate="true"/>
 
                 <p:commandButton value="Confirma"
                                  actionListener="#{pesquisa.carregaPesquisa}"
@@ -148,16 +153,38 @@
                     <h:outputText id="conexao" value="#{testeConexao.conexao}" escape="false"/>  
                 </p:dialog>
 
-                <p:dialog header="Conhecimento" 
+                <p:dialog header="Detalhes do Conhecimento" 
                           widgetVar="dlgConhecimento" 
                           hideEffect="true" 
                           showEffect="true"
                           modal="true" 
-                          height="500" 
+                          height="600" 
                           width="500">  
 
                     <p:outputPanel id="pnlDetalhes" style="text-align:left;">    
                         <h:panelGrid  columns="2" cellpadding="5">  
+                            <h:outputLabel for="analista" value="Analista: " styleClass="campo"/>  
+                            <br/>
+                            <h:outputText id="analista" value="" />
+                            <br/>
+                            <h:outputLabel for="referencia" value="Referência: " styleClass="campo"/>  
+                            <br/>
+                            <h:outputText id="referencia" value="" />
+                            <br/>
+                            <h:outputLabel for="visual" value="Nº de visualizações: " styleClass="campo"/>  
+                            <br/>
+                            <h:outputText id="visual" value="" />
+                            <br/>
+                            <h:outputLabel for="data" value="Data de Cadastro: " styleClass="campo"/>  
+                            <br/>
+                            <h:outputText id="data" value="" />
+                            <br/>
+                            <h:outputLabel for="tags" value="Tags relacionadas: " styleClass="campo"/>  
+                            <br/>
+                            <h:outputText id="tags" value="" />
+                            <br/>
+                            <p:separator />
+                            <br/>
                             <h:outputLabel for="fato" value="Fato: " styleClass="campo"/>
                             <br/>
                             <h:outputText id="fato" value="#{pesquisa.selecao.fato}" />

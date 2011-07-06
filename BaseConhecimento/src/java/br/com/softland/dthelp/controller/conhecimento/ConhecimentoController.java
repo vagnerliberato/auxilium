@@ -1,21 +1,88 @@
 package br.com.softland.dthelp.controller.conhecimento;
 
 import br.com.softland.dthelp.bean.conhecimento.ConhecimentoBean;
+import br.com.softland.dthelp.model.connection.ConexaoAgenda;
 import br.com.softland.dthelp.model.dao.conhecimento.ConhecimentoDAO;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
 
 @ManagedBean(name = "conhecimentoControl")
+@ViewScoped
 public class ConhecimentoController {
 
     private String analista = null;
     private String referencia = null;
     private String fato = null;
     private String esclarecimento = null;
+    private String arquivo = null;
     private String erro = null;
     private String sucesso = null;
+    private int selecionado;
+    private List<SelectItem> analistas = new ArrayList<SelectItem>();
+
+    public ConhecimentoController() {
+        carregaAnalistas();
+    }
+
+    public int getSelecionado() {
+        return selecionado;
+    }
+
+    public void setSelecionado(int selecionado) {
+        this.selecionado = selecionado;
+    }
+
+    public List<SelectItem> getAnalistas() {
+        return analistas;
+    }
+
+    public void setAnalistas(List<SelectItem> analistas) {
+        this.analistas = analistas;
+    }
+
+    public List<SelectItem> carregaAnalistas() {
+        try {
+            String query = "select codigo, descricao from analista";
+
+            PreparedStatement stm = ConexaoAgenda.getConnection().prepareStatement(query);
+
+            ResultSet result = stm.executeQuery();
+
+            if (result.next()) {
+
+                analistas.clear();
+
+                while (result.next()) {
+                    SelectItem item = new SelectItem(result.getString("codigo"), result.getString("descricao"));
+
+                    analistas.add(item);
+                }
+
+                result.close();
+                stm.close();
+
+                return analistas;
+
+            } else {
+
+                result.close();
+                stm.close();
+
+                return null;
+            }
+        } catch (Exception erro) {
+            setErro("Erro-Fatal", erro.getMessage());
+            return null;
+        }
+    }
 
     public String getAnalista() {
         return analista;
@@ -54,23 +121,30 @@ public class ConhecimentoController {
     }
 
     public void setErro(String tipo, String erro) {
-        FacesContext.getCurrentInstance().addMessage(null, 
+        FacesContext.getCurrentInstance().addMessage(null,
                 new FacesMessage(FacesMessage.SEVERITY_ERROR, tipo, erro));
     }
-    
+
     public String getSucesso() {
         return sucesso;
     }
 
     public void setSucesso(String tipo, String msg) {
-        FacesContext.getCurrentInstance().addMessage(null, 
+        FacesContext.getCurrentInstance().addMessage(null,
                 new FacesMessage(FacesMessage.SEVERITY_INFO, tipo, msg));
+    }
+
+    public String getArquivo() {
+        return arquivo;
+    }
+
+    public void setArquivo(String arquivo) {
+        this.arquivo = arquivo;
     }
 
     public void validaNovoConhecimento() {
 
-        if (getAnalista() != null || getReferencia() != null
-                || getFato() != null || getEsclarecimento() != null) {
+        if (getReferencia() != null || getFato() != null || getEsclarecimento() != null) {
 
             try {
                 ConhecimentoBean novo = new ConhecimentoBean();
@@ -87,14 +161,23 @@ public class ConhecimentoController {
                 int gravacao = dao.addConhecimento(novo);
 
                 if (gravacao < 0) {
-                    setErro("Erro","Não consegui grava novo conhecimento. \n Tente novamente.");
+                    setErro("Erro", "Não consegui grava novo conhecimento. \n Tente novamente.");
                 } else {
-                    setSucesso("OK","Conhecimento gravado com sucesso!");
+                    setSucesso("OK", "Conhecimento gravado com sucesso!");
                 }
 
             } catch (Exception e) {
                 setErro("Erro-Fatal", e.getMessage());
             }
         }
+        
+        limpaTela();
+    }
+
+    public void limpaTela() {
+        this.referencia = null;
+        this.fato = null;
+        this.esclarecimento = null;
+        this.arquivo = null;
     }
 }
