@@ -16,13 +16,12 @@ public class PesquisaBean {
 
     private List<ConhecimentoBean> dados = new ArrayList<ConhecimentoBean>();
     private ConhecimentoBean selecao = new ConhecimentoBean();
-    
     private String pesquisa = null;
     private boolean visivel = false;
     private String titulo = null;
     private String previa = null;
     private String erro = null;
-    private String msg = null;    
+    private String msg = null;
 
     public ConhecimentoBean getSelecao() {
         return selecao;
@@ -105,6 +104,11 @@ public class PesquisaBean {
     }
 
     public List<ConhecimentoBean> carregaPesquisa() {
+
+        if (getPesquisa().isEmpty()) {
+            return null;
+        }
+
         try {
             String query = "select l.data as data, c.razao as razao, l.solucao as solucao, "
                     + "l.comunicado as comunicado, l.descricao as descricao "
@@ -120,9 +124,9 @@ public class PesquisaBean {
             ResultSet result = stm.executeQuery();
 
             if (result.next()) {
-                
+
                 dados.clear();
-                
+
                 while (result.next()) {
                     ConhecimentoBean conhecimento = new ConhecimentoBean();
 
@@ -130,7 +134,17 @@ public class PesquisaBean {
                     conhecimento.setReferencia(result.getString("descricao"));
                     conhecimento.setData(result.getDate("data"));
                     conhecimento.setEsclarecimento(result.getString("solucao"));
-                    
+                    /*
+                    conhecimento.setAnalista(pesquisa);
+                    conhecimento.setCampo(erro);
+                    conhecimento.setData(result.getDate("data"));
+                    conhecimento.setEsclarecimento(erro);
+                    conhecimento.setFato(erro);
+                    conhecimento.setId_Conhecimento(Id_Conhecimento);
+                    conhecimento.setReferencia(previa);
+                    conhecimento.setTags(null);
+                    conhecimento.setVisual(Visual);
+                    */
                     dados.add(conhecimento);
                 }
 
