@@ -37,17 +37,14 @@ public abstract class GenericDAO extends ConexaoAgenda {
 
     public Integer getNextId(String tableName, String id) throws SQLException {
         ResultSet rs = executeQuery("SELECT MAX(" + id + ") from " + tableName);
-        if (rs.next()) {
-            Object result = rs.getObject(1);
-            if (result == null) {
-                rs.close();
-                return 1;
-            } 
-         else {
-                return (Integer) result + 1;
-            }
-        } else {
+        rs.next();
+        Object result = rs.getObject(1);
+
+        if (result == null) {
+            rs.close();
             return 1;
+        } else {
+            return (Integer) result + 1;
         }
     }
 }
