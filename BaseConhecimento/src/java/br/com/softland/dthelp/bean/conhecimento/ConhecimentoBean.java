@@ -14,14 +14,23 @@ public class ConhecimentoBean {
    private int Visual = 0;
    private String Campo = null;
    private Date Data = new Date();
+   private String Arquivo = null;
    private List<TagBean> tags = new LinkedList<TagBean>();
 
     public List<TagBean> getTags() {
         return tags;
     }
-
+       
     public void setTags(List<TagBean> tags) {
         this.tags = tags;
+    }
+
+    public String getArquivo() {
+        return Arquivo;
+    }
+
+    public void setArquivo(String Arquivo) {
+        this.Arquivo = Arquivo;
     }
 
     public String getAnalista() {
