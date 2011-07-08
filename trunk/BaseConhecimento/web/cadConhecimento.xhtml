@@ -26,7 +26,7 @@
                         <h:outputLabel value="Analista"/>
                         <p:spacer width="10"/>
 
-                        <h:selectOneMenu value="#{conhecimentoControl.analista}">
+                        <h:selectOneMenu value="#{conhecimentoControl.idAnalista}">
                             <f:selectItems value="#{conhecimentoControl.analistas}"/>
                         </h:selectOneMenu>
 
@@ -42,13 +42,13 @@
 
                         <h:outputLabel value="Fato"/>
 
-                        <p:inputTextarea value="#{conhecimentoControl.fato}"/>
+                        <p:inputTextarea value="#{conhecimentoControl.fato}" cols="100" rows="5"/>
 
                         <br/>
 
                         <h:outputLabel value="Esclarecimento"/>
 
-                        <p:inputTextarea value="#{conhecimentoControl.esclarecimento}"/>
+                        <p:inputTextarea value="#{conhecimentoControl.esclarecimento}" cols="100" rows="5"/>
 
                         <br/>
 
