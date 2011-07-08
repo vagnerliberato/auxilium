@@ -1,26 +1,26 @@
-package br.com.softland.dthelp.bean.conhecimento;
+package br.com.softland.baseConhecimento.bean;
 
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
 public class ConhecimentoBean {
-    
-   private int Id_Conhecimento = 0;
-   private String Analista = null;
-   private String Referencia = null;
-   private String Fato = null;
-   private String Esclarecimento = null;
-   private int Visual = 0;
-   private String Campo = null;
-   private Date Data = new Date();
-   private String Arquivo = null;
-   private List<TagBean> tags = new LinkedList<TagBean>();
+
+    private int Id_Conhecimento = 0;
+    private String Analista = null;
+    private String Referencia = null;
+    private String Fato = null;
+    private String Esclarecimento = null;
+    private int Visual = 0;
+    private String Campo = null;
+    private Date Data = new Date();
+    private String Arquivo = null;
+    private List<TagBean> tags = new LinkedList<TagBean>();
 
     public List<TagBean> getTags() {
         return tags;
     }
-       
+
     public void setTags(List<TagBean> tags) {
         this.tags = tags;
     }
@@ -97,4 +97,3 @@ public class ConhecimentoBean {
         this.Visual = Visual;
     }
 }
-

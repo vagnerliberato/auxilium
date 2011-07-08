@@ -1,4 +1,4 @@
-package br.com.softland.dthelp.test;
+package br.com.softland.baseConhecimento.test;
 
 
 import test.br.com.devmedia.mycompleteswingapp.entity.*;

@@ -1,8 +1,7 @@
-package br.com.softland.dthelp.bean.conhecimento;
+package br.com.softland.baseConhecimento.controller;
 
-import br.com.softland.dthelp.model.connection.ConexaoAgenda;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import br.com.softland.baseConhecimento.bean.ConhecimentoBean;
+import br.com.softland.baseConhecimento.model.dao.ConhecimentoDAO;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.application.FacesMessage;
@@ -12,7 +11,7 @@ import javax.faces.context.FacesContext;
 
 @ManagedBean(name = "pesquisa")
 @ViewScoped
-public class PesquisaBean {
+public class PesquisaController {
 
     private List<ConhecimentoBean> dados = new ArrayList<ConhecimentoBean>();
     private ConhecimentoBean selecao = new ConhecimentoBean();
@@ -110,63 +109,22 @@ public class PesquisaBean {
         }
 
         try {
-            String query = "select l.data as data, c.razao as razao, l.solucao as solucao, "
-                    + "l.comunicado as comunicado, l.descricao as descricao "
-                    + " from ligaatende l"
-                    + " join clientes c on (l.cliente = c.cod_cli)"
-                    + " where l.descricao like ?"
-                    + " order by l.data desc";
+            ConhecimentoDAO dao = new ConhecimentoDAO();
 
-            PreparedStatement stm = ConexaoAgenda.getConnection().prepareStatement(query);
+            return dados = dao.BuscaConhecimento(getPesquisa());
 
-            stm.setString(1, "%" + getPesquisa() + "%");
-
-            ResultSet result = stm.executeQuery();
-
-            if (result.next()) {
-
-                dados.clear();
-
-                while (result.next()) {
-                    ConhecimentoBean conhecimento = new ConhecimentoBean();
-
-                    conhecimento.setFato(result.getString("descricao"));
-                    conhecimento.setReferencia(result.getString("descricao"));
-                    conhecimento.setData(result.getDate("data"));
-                    conhecimento.setEsclarecimento(result.getString("solucao"));
-                    /*
-                    conhecimento.setAnalista(pesquisa);
-                    conhecimento.setCampo(erro);
-                    conhecimento.setData(result.getDate("data"));
-                    conhecimento.setEsclarecimento(erro);
-                    conhecimento.setFato(erro);
-                    conhecimento.setId_Conhecimento(Id_Conhecimento);
-                    conhecimento.setReferencia(previa);
-                    conhecimento.setTags(null);
-                    conhecimento.setVisual(Visual);
-                    */
-                    dados.add(conhecimento);
-                }
-
-                setVisivel(true);
-
-                result.close();
-                stm.close();
-
-                return dados;
-
-            } else {
-                setMsg("Atenção", "Não foram encontrados resultados para sua pesquisa \n\n"
-                        + "Tente novamente!");
-
-                result.close();
-                stm.close();
-
-                return null;
-            }
         } catch (Exception erro) {
             setErro("Erro-Fatal", erro.getMessage());
             return null;
+        }
+    }
+
+    public void atualizaVisualizacao() {
+        try {
+            ConhecimentoDAO dao = new ConhecimentoDAO();
+            dao.updateVisual(selecao.getId_Conhecimento());
+        } catch (Exception erro) {
+            setErro("Erro-Fatal", erro.getMessage());
         }
     }
 }

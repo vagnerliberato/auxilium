@@ -1,6 +1,6 @@
-package br.com.softland.dthelp.model.dao;
+package br.com.softland.baseConhecimento.model.dao;
 
-import br.com.softland.dthelp.model.connection.ConexaoAgenda;
+import br.com.softland.baseConhecimento.model.connection.ConexaoAgenda;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;

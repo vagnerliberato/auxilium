@@ -1,7 +1,7 @@
-package br.com.softland.dthelp.controller.senha;
+package br.com.softland.baseConhecimento.controller;
 
-import br.com.softland.dthelp.bean.senha.AnalistaBean;
-import br.com.softland.dthelp.model.dao.senha.SenhaDAO;
+import br.com.softland.baseConhecimento.bean.AnalistaBean;
+import br.com.softland.baseConhecimento.model.dao.SenhaDAO;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;

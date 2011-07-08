@@ -1,8 +1,9 @@
-package br.com.softland.dthelp.controller.conhecimento;
+package br.com.softland.baseConhecimento.controller;
 
-import br.com.softland.dthelp.bean.conhecimento.ConhecimentoBean;
-import br.com.softland.dthelp.model.connection.ConexaoAgenda;
-import br.com.softland.dthelp.model.dao.conhecimento.ConhecimentoDAO;
+import br.com.softland.baseConhecimento.bean.ConhecimentoBean;
+import br.com.softland.baseConhecimento.global.Funcoes;
+import br.com.softland.baseConhecimento.model.connection.ConexaoAgenda;
+import br.com.softland.baseConhecimento.model.dao.ConhecimentoDAO;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ import javax.faces.model.SelectItem;
 @ViewScoped
 public class ConhecimentoController {
 
-    private String analista = null;
+    private String idAnalista = null;
     private String referencia = null;
     private String fato = null;
     private String esclarecimento = null;
@@ -61,6 +62,11 @@ public class ConhecimentoController {
                 analistas.clear();
 
                 while (result.next()) {
+
+                    //AnalistaBean analista = new AnalistaBean();
+                    //analista.setCodigo(result.getString("codigo"));
+                    //analista.setNome(result.getString("descricao"));
+
                     SelectItem item = new SelectItem(result.getString("codigo"), result.getString("descricao"));
 
                     analistas.add(item);
@@ -84,12 +90,12 @@ public class ConhecimentoController {
         }
     }
 
-    public String getAnalista() {
-        return analista;
+    public String getIdAnalista() {
+        return idAnalista;
     }
 
-    public void setAnalista(String analista) {
-        this.analista = analista;
+    public void setIdAnalista(String idAnalista) {
+        this.idAnalista = idAnalista;
     }
 
     public String getEsclarecimento() {
@@ -149,12 +155,12 @@ public class ConhecimentoController {
             try {
                 ConhecimentoBean novo = new ConhecimentoBean();
 
-                novo.setAnalista(getAnalista());
+                novo.setAnalista(getIdAnalista());
                 novo.setReferencia(getReferencia());
                 novo.setFato(getFato());
                 novo.setEsclarecimento(getEsclarecimento());
                 novo.setData(new java.sql.Date(new Date().getTime()));
-                novo.setCampo(novo.getAnalista() + "-" + novo.getData());
+                novo.setCampo(Funcoes.geraCampo(getIdAnalista()));
                 novo.setVisual(0);
 
                 ConhecimentoDAO dao = new ConhecimentoDAO();
@@ -170,14 +176,5 @@ public class ConhecimentoController {
                 setErro("Erro-Fatal", e.getMessage());
             }
         }
-        
-        limpaTela();
-    }
-
-    public void limpaTela() {
-        this.referencia = null;
-        this.fato = null;
-        this.esclarecimento = null;
-        this.arquivo = null;
     }
 }

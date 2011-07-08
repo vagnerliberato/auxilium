@@ -5,7 +5,7 @@
  * Descrição   : Classe java para conexao com o banco Agenda.FDB (Firebird)
  * Modificação : 20/06/2011
  */
-package br.com.softland.dthelp.model.connection;
+package br.com.softland.baseConhecimento.model.connection;
 
 import java.sql.*;
 
@@ -21,14 +21,14 @@ public class ConexaoAgenda {
         driver = "org.firebirdsql.jdbc.FBDriver";
 
         //Arthemus - Casa
-        url = "jdbc:firebirdsql:arthemus/3060:C:/ArvoreDeTrabalho/Bancos/AGENDA.FDB";
-        login = "SYSDBA";
-        senha = "masterkey";
+        //url = "jdbc:firebirdsql:arthemus/3060:C:/ArvoreDeTrabalho/Bancos/AGENDA.FDB";
+        //login = "SYSDBA";
+        //senha = "masterkey";
 
         //Arthemus - Softland
-        //url = "jdbc:firebirdsql:192.168.1.120/3060:D:/Bancos/Agenda/AGENDA.FDB";
-        //login = "SYSDBA";
-        //senha = "buana";
+        url = "jdbc:firebirdsql:192.168.1.120/3060:D:/Bancos/Agenda/AGENDA.FDB";
+        login = "SYSDBA";
+        senha = "buana";
 
         try {
             Class.forName(driver);

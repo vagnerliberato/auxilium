@@ -1,8 +1,7 @@
-package br.com.softland.dthelp.model.dao.conhecimento;
+package br.com.softland.baseConhecimento.model.dao;
 
-import br.com.softland.dthelp.bean.conhecimento.ConhecimentoBean;
-import br.com.softland.dthelp.bean.conhecimento.TagBean;
-import br.com.softland.dthelp.model.dao.GenericDAO;
+import br.com.softland.baseConhecimento.bean.ConhecimentoBean;
+import br.com.softland.baseConhecimento.bean.TagBean;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
@@ -36,26 +35,32 @@ public class ConhecimentoDAO extends GenericDAO {
         }
     }
 
-    private int addTags(TagBean tg) throws SQLException {
+    public int addTags(TagBean tg) throws SQLException {
         tg.setId_Tag(getNextId("TAG", "ID_TAG"));
         String query = "INSERT INTO TAG (ID_TAG, NOME) VALUES (?, ?)";
         executeCommand(query, tg.getId_Tag(), tg.getNome());
         return tg.getId_Tag();
     }
 
-    private int updateTags(TagBean tg) throws SQLException {
+    public int updateTags(TagBean tg) throws SQLException {
         String query = "UPDATE TAG SET NOME = ? WHERE ID_TAG = ?";
         executeCommand(query, tg.getNome(), tg.getId_Tag());
         return tg.getId_Tag();
     }
 
-    private int addControleTags(TagBean tg, int idConhecimento) throws SQLException {
+    public int updateVisual(int idConhecimento) throws SQLException {
+        String query = "UPDATE CONHECIMENTO SET VISUAL = ? WHERE ID_CONHECIMENTO = ?";
+        executeCommand(query, getNextId("CONHECIMENTO", "VISUAL"), idConhecimento);
+        return getNextId("CONHECIMENTO", "VISUAL") - 1;
+    }
+
+    public int addControleTags(TagBean tg, int idConhecimento) throws SQLException {
         String query = "INSERT INTO CONTROLETAG (ID_CONHECIMENTO, ID_TAG) VALUES (? , ?)";
         executeCommand(query, idConhecimento, tg.getId_Tag());
         return tg.getId_Tag();
     }
 
-    private List<ConhecimentoBean> BuscaConhecimento(String dadosbusca) throws SQLException {
+    public List<ConhecimentoBean> BuscaConhecimento(String dadosbusca) throws SQLException {
         List<ConhecimentoBean> toReturn = new LinkedList<ConhecimentoBean>();
         StringBuilder querySQL = new StringBuilder();
 
@@ -64,12 +69,12 @@ public class ConhecimentoDAO extends GenericDAO {
                     + "LEFT JOIN CONTROLETAG CT ON (CT.ID_CONHECIMENTO = C.ID_CONHECIMENTO) "
                     + "LEFT JOIN TAG T ON (CT.id_tag = T.id_tag) "
                     + "WHERE UPPER(C.FATO) LIKE '%' || UPPER('" + dadosbusca + "') || '%'"
-                    + "OR UPPER(C.referencia) LIKE '%' || UPPER('" + dadosbusca + " ') || '%' "
-                    + "OR UPPER(C.ESCLARECIMENTO) LIKE '%' || UPPER('" + dadosbusca + " ') || '%'");
+                    + " OR UPPER(C.referencia) LIKE '%' || UPPER('" + dadosbusca + "') || '%' "
+                    + " OR UPPER(C.ESCLARECIMENTO) LIKE '%' || UPPER('" + dadosbusca + "') || '%'");
 
             ResultSet rs = executeQuery(querySQL.toString());
 
-            if (rs.next()) {
+            if (rs != null) {
 
                 while (rs.next()) {
                     ConhecimentoBean conhecimento = new ConhecimentoBean();
@@ -92,7 +97,7 @@ public class ConhecimentoDAO extends GenericDAO {
 
             rs.close();
             return toReturn;
-            
+
         } catch (Exception e) {
             return null;
         }
