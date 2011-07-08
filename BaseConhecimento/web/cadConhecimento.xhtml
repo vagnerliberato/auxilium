@@ -1,9 +1,13 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" 
+      lang="pt-br" 
+      xml:lang="pt-br"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.prime.com.tr/ui">
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
     <h:head>
         <title>Softland</title>
@@ -15,71 +19,74 @@
         </style> 
     </h:head>
 
-    <h:body>
+    <h:body style="font-family: Arial; background-image: url('imagens/parede.jpg')">
         <center>
 
             <h3>Cadastro de Conhecimentos</h3>
 
-            <h:form id="FormConhecimento">   
-                <h:panelGrid columns="2">
-                    <p:panel id="panel">
-                        <h:outputLabel value="Analista"/>
-                        <p:spacer width="10"/>
+            <f:view contentType="text/html">
 
-                        <h:selectOneMenu value="#{conhecimentoControl.idAnalista}">
-                            <f:selectItems value="#{conhecimentoControl.analistas}"/>
-                        </h:selectOneMenu>
+                <h:form id="FormConhecimento">   
+                    <h:panelGrid columns="2">
+                        <p:panel id="panel" style="background-image: url('imagens/parede.jpg')">
+                            <h:outputLabel value="Analista"/>
+                            <p:spacer width="10"/>
 
-                        <br/>
-                        <br/>
+                            <h:selectOneMenu value="#{conhecimentoControl.idAnalista}">
+                                <f:selectItems value="#{conhecimentoControl.analistas}"/>
+                            </h:selectOneMenu>
 
-                        <h:outputLabel value="Referência"/>       
-                        <p:spacer width="10"/>
-                        <p:inputText value="#{conhecimentoControl.referencia}"/>
+                            <br/>
+                            <br/>
 
-                        <br/>
-                        <br/>
+                            <h:outputLabel value="ReferÃªncia"/>       
+                            <p:spacer width="10"/>
+                            <p:inputText value="#{conhecimentoControl.referencia}"/>
 
-                        <h:outputLabel value="Fato"/>
+                            <br/>
+                            <br/>
 
-                        <p:inputTextarea value="#{conhecimentoControl.fato}" cols="100" rows="5"/>
+                            <h:outputLabel value="Fato"/>
 
-                        <br/>
+                            <p:inputTextarea value="#{conhecimentoControl.fato}" cols="100" rows="5"/>
 
-                        <h:outputLabel value="Esclarecimento"/>
+                            <br/>
 
-                        <p:inputTextarea value="#{conhecimentoControl.esclarecimento}" cols="100" rows="5"/>
+                            <h:outputLabel value="Esclarecimento"/>
 
-                        <br/>
+                            <p:inputTextarea value="#{conhecimentoControl.esclarecimento}" cols="100" rows="5"/>
 
-                        <h:outputLabel value="Arquivo: "/>
-                        <p:spacer width="10"/>
-                        <p:inputText value="#{conhecimentoControl.arquivo}"/>  
+                            <br/>
 
-                        <br/>
-                        <br/>
+                            <h:outputLabel value="Arquivo: "/>
+                            <p:spacer width="10"/>
+                            <p:inputText value="#{conhecimentoControl.arquivo}"/>  
 
-                        <p:separator /> 
+                            <br/>
+                            <br/>
 
-                        <p:commandButton value="Gravar"
-                                         actionListener="#{conhecimentoControl.validaNovoConhecimento}"
-                                         title="Gravar novo conhecimento"
-                                         update="msgs"/>
+                            <p:separator /> 
 
-                        <p:commandButton id="btnLimpar"
-                                         value="Limpar"
-                                         type="reset"
-                                         title="Limpar todos os campos"/>
+                            <p:commandButton value="Gravar"
+                                             actionListener="#{conhecimentoControl.validaNovoConhecimento}"
+                                             title="Gravar novo conhecimento"
+                                             update="msgs"/>
 
-                        <p:commandButton value="Sair"
-                                         action="index.xhtml" 
-                                         ajax="false"
-                                         title="Voltar para pagina inicial"/>
-                    </p:panel>
-                </h:panelGrid>   
+                            <p:commandButton id="btnLimpar"
+                                             value="Limpar"
+                                             type="reset"
+                                             title="Limpar todos os campos"/>
 
-                <p:messages id="msgs" showDetail="true"/>  
-            </h:form>
+                            <p:commandButton value="Sair"
+                                             action="index.xhtml" 
+                                             ajax="false"
+                                             title="Voltar para pagina inicial"/>
+                        </p:panel>
+                    </h:panelGrid>   
+
+                    <p:messages id="msgs" showDetail="true"/>  
+                </h:form>
+            </f:view>
         </center>
     </h:body>
 </html>

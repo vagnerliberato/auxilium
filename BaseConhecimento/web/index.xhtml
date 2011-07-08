@@ -1,22 +1,26 @@
-<?xml version='1.0' encoding='ISO-8859-1' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      lang="pt-br" 
+      xml:lang="pt-br"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.prime.com.tr/ui">
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
     <h:head>
         <title>Softland</title>
 
         <style type="text/css">  
             .ui-widget {  
-                font-size: 12px !important;  
+                font-size: 12px !important;
             } 
         </style> 
 
     </h:head>
 
-    <h:body>
+    <h:body style="font-family: Arial; background-image: url('imagens/parede.jpg')">
         <center>
             <h:form id="FormIndex" prependId="false">
 
@@ -24,7 +28,7 @@
 
                 <!-- 
                   Menu principal.
-                  Links para navegação do sistema.
+                  Links para navegaÃ§Ã£o do sistema.
                 -->
 
                 <p:commandLink   action="cadConhecimento.xhtml" 
@@ -45,7 +49,7 @@
 
                 <p:commandLink   action="sobre.xhtml"
                                  value="Sobre" 
-                                 title="Informações sobre a Base de Conhecimento"
+                                 title="InformaÃ§Ãµes sobre a Base de Conhecimento"
                                  disabled="true"/>
 
                 <!-- Fim Menu -->
@@ -69,8 +73,10 @@
                                  update="conteudo"/>
 
                 <p:ajaxStatus>  
-                    <f:facet name="start">  
-                        <h:outputText value="Processando..." />   
+                    <f:facet name="start">
+                        <h:graphicImage value="imagens/livro.gif" /> 
+                        <br/>
+                        <h:outputText value="Pesquisando..." />   
                     </f:facet>  
 
                     <f:facet name="complete">  
@@ -85,8 +91,8 @@
 
                 <!-- 
                   Tabela de conhecimento.
-                  Aqui será mostrado todo o conteudo resultante da pesquisa do
-                  usuário.
+                  Aqui serÃ¡ mostrado todo o conteudo resultante da pesquisa do
+                  usuÃ¡rio.
                 -->
 
                 <p:dataGrid var="item" 
@@ -121,7 +127,7 @@
 
                             <f:facet name="options">  
                                 <p:menu>  
-                                    <p:submenu label="Opções">  
+                                    <p:submenu label="OpÃ§Ãµes">  
                                         <p:menuitem value="Visualizar Fato Completo"
                                                     update="pnlDetalhes"
                                                     onclick="dlgConhecimento.show()"> 
@@ -140,10 +146,10 @@
 
                 <!-- 
                   Dialogs. 
-                  Janelas de informação ao usuário 
+                  Janelas de informaÃ§Ã£o ao usuÃ¡rio 
                 -->
 
-                <p:dialog header="Conexão" 
+                <p:dialog header="ConexÃ£o" 
                           widgetVar="dlgConexao" 
                           hideEffect="true" 
                           showEffect="true"
@@ -168,11 +174,11 @@
                             <br/>
                             <h:outputText id="analista" value="#{pesquisa.selecao.analista}" />
                             <br/>
-                            <h:outputLabel for="referencia" value="Referência: " styleClass="campo"/>  
+                            <h:outputLabel for="referencia" value="ReferÃªncia: " styleClass="campo"/>  
                             <br/>
                             <h:outputText id="referencia" value="#{pesquisa.selecao.referencia}" />
                             <br/>
-                            <h:outputLabel for="visual" value="Nº de visualizações: " styleClass="campo"/>  
+                            <h:outputLabel for="visual" value="NÂº de visualizaÃ§Ãµes: " styleClass="campo"/>  
                             <br/>
                             <h:outputText id="visual" value="#{pesquisa.selecao.visual}" />
                             <br/>
@@ -202,8 +208,8 @@
                 <!-- Fim Dialogs -->
 
                 <!-- 
-                  Mensagens informativas do próprio sistema sobre erros, 
-                  problemas de conexão ou Exceptions que ocorrão na tela 
+                  Mensagens informativas do prÃ³prio sistema sobre erros, 
+                  problemas de conexÃ£o ou Exceptions que ocorrÃ£o na tela 
                   principal do sistema 
                 -->
 
