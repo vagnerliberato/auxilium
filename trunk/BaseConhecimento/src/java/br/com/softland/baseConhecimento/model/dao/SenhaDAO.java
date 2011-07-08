@@ -1,7 +1,7 @@
-package br.com.softland.dthelp.model.dao.senha;
+package br.com.softland.baseConhecimento.model.dao;
 
-import br.com.softland.dthelp.bean.senha.AnalistaBean;
-import br.com.softland.dthelp.model.connection.ConexaoAgenda;
+import br.com.softland.baseConhecimento.bean.AnalistaBean;
+import br.com.softland.baseConhecimento.model.connection.ConexaoAgenda;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -31,9 +31,9 @@ public class SenhaDAO {
         if (result.next()) {
             analista.setCodigo(result.getString("CODIGO"));
             analista.setNome(result.getString("DESCRICAO"));
-            analista.setSenha(result.getString("ANALISTA_PASS"));
-            analista.setAtivo(result.getInt("ATIVO") == 1 ? true : false);
-            analista.setDesenvolvedor(result.getInt("DESENVOLVEDOR") == 1 ? true : false);
+            //analista.setSenha(result.getString("ANALISTA_PASS"));
+            //analista.setAtivo(result.getInt("ATIVO") == 1 ? true : false);
+            //analista.setDesenvolvedor(result.getInt("DESENVOLVEDOR") == 1 ? true : false);
 
             return analista;
         } else {

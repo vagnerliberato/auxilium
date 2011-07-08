@@ -1,6 +1,6 @@
-package br.com.softland.dthelp.test;
+package br.com.softland.baseConhecimento.test;
 
-import br.com.softland.dthelp.model.connection.ConexaoAgenda;
+import br.com.softland.baseConhecimento.model.connection.ConexaoAgenda;
 import java.sql.Connection;
 import javax.faces.bean.ManagedBean;
 

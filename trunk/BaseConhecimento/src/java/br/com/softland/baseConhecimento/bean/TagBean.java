@@ -1,4 +1,4 @@
-package br.com.softland.dthelp.bean.conhecimento;
+package br.com.softland.baseConhecimento.bean;
 
 public class TagBean {
     

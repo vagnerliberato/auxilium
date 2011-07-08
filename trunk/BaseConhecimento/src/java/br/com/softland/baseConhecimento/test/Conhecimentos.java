@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.softland.dthelp.test;
+package br.com.softland.baseConhecimento.test;
 
 import javax.faces.bean.ManagedBean;
 
