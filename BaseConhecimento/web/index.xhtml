@@ -11,7 +11,7 @@
         <style type="text/css">  
             .ui-widget {  
                 font-size: 12px !important;  
-            }  
+            } 
         </style> 
 
     </h:head>
@@ -96,7 +96,7 @@
                             id="conteudo">  
 
                     <p:column>  
-                        <p:panel header="#{item.data}" 
+                        <p:panel header="#{item.referencia}" 
                                  style="text-align:center"
                                  toggleable="true"
                                  toggleSpeed="500">  
@@ -104,11 +104,12 @@
                             <h:panelGrid columns="1" 
                                          style="width:100%">  
 
-                                <h:outputText value="#{item.referencia}" />  
+                                <h:outputText value="#{item.fato}" />  
 
                                 <br/>
 
-                                <p:commandLink update="pnlDetalhes" 
+                                <p:commandLink actionListener="#{pesquisa.atualizaVisualizacao}"
+                                               update="pnlDetalhes" 
                                                oncomplete="dlgConhecimento.show()" 
                                                title="Detalhes do conhecimento"
                                                value="+ Detalhes">  
@@ -165,23 +166,23 @@
                         <h:panelGrid  columns="2" cellpadding="5">  
                             <h:outputLabel for="analista" value="Analista: " styleClass="campo"/>  
                             <br/>
-                            <h:outputText id="analista" value="" />
+                            <h:outputText id="analista" value="#{pesquisa.selecao.analista}" />
                             <br/>
                             <h:outputLabel for="referencia" value="Referência: " styleClass="campo"/>  
                             <br/>
-                            <h:outputText id="referencia" value="" />
+                            <h:outputText id="referencia" value="#{pesquisa.selecao.referencia}" />
                             <br/>
                             <h:outputLabel for="visual" value="Nº de visualizações: " styleClass="campo"/>  
                             <br/>
-                            <h:outputText id="visual" value="" />
+                            <h:outputText id="visual" value="#{pesquisa.selecao.visual}" />
                             <br/>
                             <h:outputLabel for="data" value="Data de Cadastro: " styleClass="campo"/>  
                             <br/>
-                            <h:outputText id="data" value="" />
+                            <h:outputText id="data" value="#{pesquisa.selecao.data}" />
                             <br/>
                             <h:outputLabel for="tags" value="Tags relacionadas: " styleClass="campo"/>  
                             <br/>
-                            <h:outputText id="tags" value="" />
+                            <h:outputText id="tags" value="#{pesquisa.selecao.tags}" />
                             <br/>
                             <p:separator />
                             <br/>
