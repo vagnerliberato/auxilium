@@ -65,13 +65,29 @@ public class ConhecimentoDAO extends GenericDAO {
         StringBuilder querySQL = new StringBuilder();
 
         try {
+            
+            String[] pedacos = dadosbusca.split("\\s");
+            
+            //A Select abaixo recebe a primeira palavra digitada pelo usuário.
             querySQL.append("SELECT c.ID_CONHECIMENTO, c.REFERENCIA, c.FATO, c.ESCLARECIMENTO, c.ANALISTA, c.VISUAL, c.CAMPO, c.DATA, c.ARQUIVO FROM CONHECIMENTO C "
                     + "LEFT JOIN CONTROLETAG CT ON (CT.ID_CONHECIMENTO = C.ID_CONHECIMENTO) "
                     + "LEFT JOIN TAG T ON (CT.id_tag = T.id_tag) "
-                    + "WHERE UPPER(C.FATO) LIKE '%' || UPPER('" + dadosbusca + "') || '%'"
-                    + " OR UPPER(C.referencia) LIKE '%' || UPPER('" + dadosbusca + "') || '%' "
-                    + " OR UPPER(C.ESCLARECIMENTO) LIKE '%' || UPPER('" + dadosbusca + "') || '%'");
-
+                    + "WHERE UPPER(C.FATO) LIKE '%' || UPPER('" + pedacos[0] + "') || '%'"
+                    + " OR UPPER(C.referencia) LIKE '%' || UPPER('" + pedacos[0] + "') || '%' "
+                    + " OR UPPER(C.ESCLARECIMENTO) LIKE '%' || UPPER('" + pedacos[0] + "') || '%'"
+                    + " OR UPPER(T.NOME) LIKE '%' || UPPER('" + pedacos[0] + "') || '%'");
+            
+            // Aqui estavamos fazendo uma verificação do número de palavras em que é adicionada dinamicamente na SELECT acima.
+            for (int qtdpalavras = 1; qtdpalavras < pedacos.length; qtdpalavras++) {
+                querySQL.append(" OR UPPER(C.FATO) LIKE '%' || UPPER('" + pedacos[qtdpalavras] + "') || '%'"
+                    + " OR UPPER(C.referencia) LIKE '%' || UPPER('" + pedacos[qtdpalavras] + "') || '%' "
+                    + " OR UPPER(C.ESCLARECIMENTO) LIKE '%' || UPPER('" + pedacos[qtdpalavras] + "') || '%'"
+                    + " OR UPPER(T.NOME) LIKE '%' || UPPER('" + pedacos[qtdpalavras] + "') || '%'" );
+            }
+            
+            // Fiz o agrupamento para trazer os melhores resultados conforme os dados mencionados pelo usuário.
+            querySQL.append(" GROUP BY c.ID_CONHECIMENTO, c.REFERENCIA, c.FATO, c.ESCLARECIMENTO, c.ANALISTA, c.VISUAL, c.CAMPO, c.DATA, c.ARQUIVO");
+                        
             ResultSet rs = executeQuery(querySQL.toString());
 
             if (rs != null) {
