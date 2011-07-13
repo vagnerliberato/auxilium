@@ -5,7 +5,7 @@ CREATE TABLE conhecimento (
     ,analista char(2) not null
     ,referencia char(100) not null
     ,fato varchar(500) not null
-    ,esclarecimento varchar(500) not null
+    ,esclarecimento varchar(1000) not null
     ,visual integer not null
     ,campo varchar(35) not null
     ,data date not null
@@ -63,3 +63,4 @@ ON CONHECIMENTO (REFERENCIA);
 COMMIT WORK;
 
 /* Fim - Arthemus - 07/07/2011 */
+
