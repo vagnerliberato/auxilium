@@ -3,7 +3,7 @@
 CREATE TABLE conhecimento (
      id_conhecimento integer not null
     ,analista char(2) not null
-    ,referencia char(15) not null
+    ,referencia char(100) not null
     ,fato varchar(500) not null
     ,esclarecimento varchar(500) not null
     ,visual integer not null
@@ -29,7 +29,7 @@ COMMENT ON COLUMN conhecimento.esclarecimento IS
 
 create table tag (
      id_tag integer not null
-    ,nome varchar(10) not null 
+    ,nome varchar(30) not null
 );
 
 alter table tag add constraint pk_tag primary key (id_tag);
@@ -49,15 +49,6 @@ commit work;
 
 /* Fim - Arthemus - 14/06/2011 */
 
-/* Inicio - Vagner - 25/06/2011 - Aumentei o tamanho do campo REFERENCIA para 50 caracteres*/
-
-update RDB$FIELDS set RDB$FIELD_LENGTH = 50, RDB$CHARACTER_LENGTH = 50
-where RDB$FIELD_NAME = 'RDB$537';
-
-commit;
-
-/* Fim - Vagner - 25/06/2011 */
-
 /* Início - Arthemus - 07/07/2011 */
 
 CREATE INDEX IDX_CONHECIMENTO_FATO
@@ -70,12 +61,5 @@ CREATE INDEX IDX_CONHECIMENTO_REFERENCIA
 ON CONHECIMENTO (REFERENCIA);
 
 COMMIT WORK;
-
-update RDB$FIELDS set
-RDB$FIELD_LENGTH = 100,
-RDB$CHARACTER_LENGTH = 100
-where RDB$FIELD_NAME = 'RDB$559';
-
-COMMIT;
 
 /* Fim - Arthemus - 07/07/2011 */

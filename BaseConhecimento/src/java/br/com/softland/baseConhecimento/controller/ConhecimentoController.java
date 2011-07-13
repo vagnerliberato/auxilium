@@ -14,9 +14,9 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
+import org.primefaces.event.FileUploadEvent;
 
 @ManagedBean(name = "conhecimentoControl")
-@ViewScoped
 public class ConhecimentoController {
 
     private String idAnalista = null;
@@ -162,6 +162,7 @@ public class ConhecimentoController {
                 novo.setData(new java.sql.Date(new Date().getTime()));
                 novo.setCampo(Funcoes.geraCampo(getIdAnalista()));
                 novo.setVisual(0);
+                novo.setArquivo(getArquivo());
 
                 ConhecimentoDAO dao = new ConhecimentoDAO();
                 int gravacao = dao.addConhecimento(novo);
@@ -175,6 +176,14 @@ public class ConhecimentoController {
             } catch (Exception e) {
                 setErro("Erro-Fatal", e.getMessage());
             }
+        }
+    }
+
+    public void fileUpload(FileUploadEvent event) {
+        try {
+            setArquivo(""+event.getFile().getInputstream());
+        } catch (Exception erro) {
+            setErro("Erro-Fatal", erro.getMessage());
         }
     }
 }
