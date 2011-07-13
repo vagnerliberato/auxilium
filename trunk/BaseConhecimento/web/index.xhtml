@@ -10,7 +10,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
     <h:head>
-        <title>Softland</title>
+        <title>Base de Conhecimento</title>
 
         <style type="text/css">  
             .ui-widget {  
@@ -21,9 +21,9 @@
     </h:head>
 
     <h:body style="font-family: Arial; background-image: url('imagens/parede.jpg')">
-        <center>
-            <h:form id="FormIndex" prependId="false">
 
+        <h:form id="FormIndex" prependId="false">
+            <center>
                 <h3>Base de Conhecimento</h3>
 
                 <!-- 
@@ -35,11 +35,12 @@
                                  value="+ Conhecimento" 
                                  ajax="false"
                                  title="Cadastrar um novo Conhecimento"
+                                 disabled="false"
                                  actionListener="#{conhecimentoControl.carregaAnalistas}"/>  
 
                 <p:spacer width="10"/>
 
-                <p:commandLink   action="atigos.xhtml"
+                <p:commandLink   action="listaArtigos.xhtml"
                                  ajax="false"
                                  value="Artigos" 
                                  title="Artigos diversos, docs, tutorias, apostilas, informativos..."
@@ -48,6 +49,7 @@
                 <p:spacer width="10"/>
 
                 <p:commandLink   action="sobre.xhtml"
+                                 ajax="false"
                                  value="Sobre" 
                                  title="Informações sobre a Base de Conhecimento"
                                  disabled="true"/>
@@ -72,9 +74,11 @@
                                  actionListener="#{pesquisa.carregaPesquisa}"
                                  update="conteudo"/>
 
+                <br/>
+                
                 <p:ajaxStatus>  
                     <f:facet name="start">
-                        <h:graphicImage value="imagens/livro.gif" /> 
+                        <h:graphicImage value="imagens/time.gif" /> 
                         <br/>
                         <h:outputText value="Pesquisando..." />   
                     </f:facet>  
@@ -105,7 +109,8 @@
                         <p:panel header="#{item.referencia}" 
                                  style="text-align:center"
                                  toggleable="true"
-                                 toggleSpeed="500">  
+                                 toggleSpeed="500"
+                                 id="conteudoUni">  
 
                             <h:panelGrid columns="1" 
                                          style="width:100%">  
@@ -128,12 +133,12 @@
                             <f:facet name="options">  
                                 <p:menu>  
                                     <p:submenu label="Opções">  
-                                        <p:menuitem value="Visualizar Fato Completo"
-                                                    update="pnlDetalhes"
-                                                    onclick="dlgConhecimento.show()"> 
+                                        <p:menuitem value="Exportar para PDF">
 
                                             <f:setPropertyActionListener value="#{item}"   
-                                                                         target="#{pesquisa.selecao}" />
+                                                                         target="#{pesquisa.selecao}" /> 
+
+                                            <p:dataExporter id="exPdf" type="pdf" target="conteudo" fileName="Pesquisa" />
                                         </p:menuitem>
                                     </p:submenu>  
                                 </p:menu>  
@@ -142,82 +147,93 @@
                     </p:column>
                 </p:dataGrid>
 
-                <!-- Fim Tabela -->
+            </center>  
+            <!-- Fim Tabela -->
 
-                <!-- 
-                  Dialogs. 
-                  Janelas de informação ao usuário 
-                -->
+            <!-- 
+              Dialogs. 
+              Janelas de informação ao usuário 
+            -->
 
-                <p:dialog header="Conexão" 
-                          widgetVar="dlgConexao" 
-                          hideEffect="true" 
-                          showEffect="true"
-                          modal="true" 
-                          height="50" 
-                          width="500">
+            <p:dialog header="Conexão" 
+                      widgetVar="dlgConexao" 
+                      hideEffect="true" 
+                      showEffect="true"
+                      modal="true" 
+                      height="50" 
+                      width="500">
 
-                    <h:outputText id="conexao" value="#{testeConexao.conexao}" escape="false"/>  
-                </p:dialog>
+                <h:outputText id="conexao" value="#{testeConexao.conexao}" escape="false"/>  
+            </p:dialog>
 
-                <p:dialog header="Detalhes do Conhecimento" 
-                          widgetVar="dlgConhecimento" 
-                          hideEffect="true" 
-                          showEffect="true"
-                          modal="true" 
-                          height="600" 
-                          width="500">  
+            <p:dialog header="Detalhes do Conhecimento" 
+                      widgetVar="dlgConhecimento" 
+                      hideEffect="true" 
+                      showEffect="true"
+                      modal="true" 
+                      height="600" 
+                      width="500">  
 
-                    <p:outputPanel id="pnlDetalhes" style="text-align:left;">    
-                        <h:panelGrid  columns="2" cellpadding="5">  
-                            <h:outputLabel for="analista" value="Analista: " styleClass="campo"/>  
-                            <br/>
-                            <h:outputText id="analista" value="#{pesquisa.selecao.analista}" />
-                            <br/>
-                            <h:outputLabel for="referencia" value="Referência: " styleClass="campo"/>  
-                            <br/>
-                            <h:outputText id="referencia" value="#{pesquisa.selecao.referencia}" />
-                            <br/>
-                            <h:outputLabel for="visual" value="Nº de visualizações: " styleClass="campo"/>  
-                            <br/>
-                            <h:outputText id="visual" value="#{pesquisa.selecao.visual}" />
-                            <br/>
-                            <h:outputLabel for="data" value="Data de Cadastro: " styleClass="campo"/>  
-                            <br/>
-                            <h:outputText id="data" value="#{pesquisa.selecao.data}" />
-                            <br/>
-                            <h:outputLabel for="tags" value="Tags relacionadas: " styleClass="campo"/>  
-                            <br/>
-                            <h:outputText id="tags" value="#{pesquisa.selecao.tags}" />
-                            <br/>
-                            <p:separator />
-                            <br/>
-                            <h:outputLabel for="fato" value="Fato: " styleClass="campo"/>
-                            <br/>
-                            <h:outputText id="fato" value="#{pesquisa.selecao.fato}" />
-                            <br/>
-                            <p:separator />
-                            <br/>                           
-                            <h:outputLabel for="solucao" value="Esclarecimento: " styleClass="campo"/>  
-                            <br/>
-                            <h:outputText id="esclarecimento" value="#{pesquisa.selecao.esclarecimento}" /> 
-                        </h:panelGrid>  
-                    </p:outputPanel> 
-                </p:dialog>
+                <p:outputPanel id="pnlDetalhes" style="text-align:left;">    
+                    <h:panelGrid  columns="2" cellpadding="5">  
+                        <h:outputLabel for="analista" value="Analista: " style="font-weight: bold;"/>  
+                        <br/>
+                        <h:outputText id="analista" value="#{pesquisa.selecao.analista}" />
+                        <br/>
+                        <h:outputLabel for="referencia" value="Referência: " style="font-weight: bold;"/>  
+                        <br/>
+                        <h:outputText id="referencia" value="#{pesquisa.selecao.referencia}" style="color: #FF0000;" />
+                        <br/>
+                        <h:outputLabel for="visual" value="Nº de visualizações: " style="font-weight: bold;"/>  
+                        <br/>
+                        <h:outputText id="visual" value="#{pesquisa.selecao.visual}" />
+                        <br/>
+                        <h:outputLabel for="data" value="Data de Cadastro: " style="font-weight: bold;"/>  
+                        <br/>
+                        <h:outputText id="data" value="#{pesquisa.selecao.data}">
+                            <f:convertDateTime dateStyle = "full"/>
+                        </h:outputText>    
+                        <br/>
+                        <!--
+                        <h:outputLabel for="tags" value="Tags relacionadas: " style="font-weight: bold;"/>  
+                        <br/>
+                        <h:outputText id="tags" value="#{pesquisa.selecao.tags}" />
+                        -->
+                        <br/>
+                        <p:separator />
+                        <br/>
+                        <h:outputLabel for="fato" value="Fato: " style="font-weight: bold;"/>
+                        <br/>
+                        <h:outputText id="fato" value="#{pesquisa.selecao.fato}" style="color: rgb(0,0,255);" />
+                        <br/>
+                        <p:separator />
+                        <br/>                           
+                        <h:outputLabel for="solucao" value="Esclarecimento: " style="font-weight: bold;"/>  
+                        <br/>
+                        <h:outputText id="esclarecimento" value="#{pesquisa.selecao.esclarecimento}" style="color: rgb(0,0,255);" /> 
+                    </h:panelGrid>  
+                </p:outputPanel> 
+            </p:dialog>
 
-                <!-- Fim Dialogs -->
+            <!-- Fim Dialogs -->
 
-                <!-- 
-                  Mensagens informativas do próprio sistema sobre erros, 
-                  problemas de conexão ou Exceptions que ocorrão na tela 
-                  principal do sistema 
-                -->
+            <!-- 
+              Mensagens informativas do próprio sistema sobre erros, 
+              problemas de conexão ou Exceptions que ocorrão na tela 
+              principal do sistema 
+            -->
 
-                <p:messages id="msgs" showDetail="true"/>
+            <p:notificationBar position="bottom" effect="fade" widgetVar="MsgBar" styleClass="bottom">  
+                <f:facet name="close">  
+                    [ X ]
+                </f:facet>  
 
-                <!-- Fim Mensagens -->
+                <h:panelGroup id="MsgPanel" style="margin-right:200px;">  
+                    <p:messages id="msgs" showDetail="true"/> 
+                </h:panelGroup>  
+            </p:notificationBar>
 
-            </h:form>
-        </center>    
+            <!-- Fim Mensagens -->
+        </h:form>  
     </h:body>
 </html>

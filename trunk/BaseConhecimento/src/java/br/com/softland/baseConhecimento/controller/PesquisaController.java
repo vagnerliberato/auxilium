@@ -111,7 +111,15 @@ public class PesquisaController {
         try {
             ConhecimentoDAO dao = new ConhecimentoDAO();
 
-            return dados = dao.BuscaConhecimento(getPesquisa());
+            this.dados = dao.BuscaConhecimento(getPesquisa());
+            
+            if (dados == null) {
+                setMsg("Pesquisa", "Que pena, não foi encontrado nenhum resultado para sua"+
+                        "sua pesquisa. \n Reescreva seu titulo e tente novamente.");
+                return null;
+            } else {
+                return this.dados;
+            }
 
         } catch (Exception erro) {
             setErro("Erro-Fatal", erro.getMessage());

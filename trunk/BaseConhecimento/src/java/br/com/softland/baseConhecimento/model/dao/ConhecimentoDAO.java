@@ -4,6 +4,8 @@ import br.com.softland.baseConhecimento.bean.ConhecimentoBean;
 import br.com.softland.baseConhecimento.bean.TagBean;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -65,37 +67,41 @@ public class ConhecimentoDAO extends GenericDAO {
         StringBuilder querySQL = new StringBuilder();
 
         try {
-            
+
             String[] pedacos = dadosbusca.split("\\s");
-            
+
             //A Select abaixo recebe a primeira palavra digitada pelo usuário.
-            querySQL.append("SELECT c.ID_CONHECIMENTO, c.REFERENCIA, c.FATO, c.ESCLARECIMENTO, c.ANALISTA, c.VISUAL, c.CAMPO, c.DATA, c.ARQUIVO FROM CONHECIMENTO C "
+            querySQL.append("SELECT c.ID_CONHECIMENTO, c.REFERENCIA, c.FATO, c.ESCLARECIMENTO, a.DESCRICAO, c.VISUAL, c.CAMPO, c.DATA, c.ARQUIVO "
+                    + "FROM CONHECIMENTO C "
+                    + "INNER JOIN ANALISTA A ON (C.ANALISTA = A.CODIGO) "
                     + "LEFT JOIN CONTROLETAG CT ON (CT.ID_CONHECIMENTO = C.ID_CONHECIMENTO) "
                     + "LEFT JOIN TAG T ON (CT.id_tag = T.id_tag) "
                     + "WHERE UPPER(C.FATO) LIKE '%' || UPPER('" + pedacos[0] + "') || '%'"
                     + " OR UPPER(C.referencia) LIKE '%' || UPPER('" + pedacos[0] + "') || '%' "
                     + " OR UPPER(C.ESCLARECIMENTO) LIKE '%' || UPPER('" + pedacos[0] + "') || '%'"
                     + " OR UPPER(T.NOME) LIKE '%' || UPPER('" + pedacos[0] + "') || '%'");
-            
+
             // Aqui estavamos fazendo uma verificação do número de palavras em que é adicionada dinamicamente na SELECT acima.
             for (int qtdpalavras = 1; qtdpalavras < pedacos.length; qtdpalavras++) {
                 querySQL.append(" OR UPPER(C.FATO) LIKE '%' || UPPER('" + pedacos[qtdpalavras] + "') || '%'"
-                    + " OR UPPER(C.referencia) LIKE '%' || UPPER('" + pedacos[qtdpalavras] + "') || '%' "
-                    + " OR UPPER(C.ESCLARECIMENTO) LIKE '%' || UPPER('" + pedacos[qtdpalavras] + "') || '%'"
-                    + " OR UPPER(T.NOME) LIKE '%' || UPPER('" + pedacos[qtdpalavras] + "') || '%'" );
+                        + " OR UPPER(C.referencia) LIKE '%' || UPPER('" + pedacos[qtdpalavras] + "') || '%' "
+                        + " OR UPPER(C.ESCLARECIMENTO) LIKE '%' || UPPER('" + pedacos[qtdpalavras] + "') || '%'"
+                        + " OR UPPER(T.NOME) LIKE '%' || UPPER('" + pedacos[qtdpalavras] + "') || '%'");
             }
-            
+
             // Fiz o agrupamento para trazer os melhores resultados conforme os dados mencionados pelo usuário.
-            querySQL.append(" GROUP BY c.ID_CONHECIMENTO, c.REFERENCIA, c.FATO, c.ESCLARECIMENTO, c.ANALISTA, c.VISUAL, c.CAMPO, c.DATA, c.ARQUIVO");
-                        
+            querySQL.append(" GROUP BY c.ID_CONHECIMENTO, c.REFERENCIA, c.FATO, c.ESCLARECIMENTO, a.DESCRICAO, c.VISUAL, c.CAMPO, c.DATA, c.ARQUIVO");
+
             ResultSet rs = executeQuery(querySQL.toString());
 
             if (rs != null) {
 
+                SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+
                 while (rs.next()) {
                     ConhecimentoBean conhecimento = new ConhecimentoBean();
 
-                    conhecimento.setAnalista(rs.getString("ANALISTA"));
+                    conhecimento.setAnalista(rs.getString("DESCRICAO"));
                     conhecimento.setCampo(rs.getString("CAMPO"));
                     conhecimento.setData(rs.getDate("DATA"));
                     conhecimento.setEsclarecimento(rs.getString("ESCLARECIMENTO"));
@@ -109,6 +115,8 @@ public class ConhecimentoDAO extends GenericDAO {
                     toReturn.add(conhecimento);
                 }
 
+            } else {
+                return null;
             }
 
             rs.close();

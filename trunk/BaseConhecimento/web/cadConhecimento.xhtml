@@ -10,13 +10,19 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
     <h:head>
-        <title>Softland</title>
+        <title>Base de Conhecimento</title>
 
         <style type="text/css">  
             .ui-widget {  
                 font-size: 12px !important;  
             }  
         </style> 
+        
+        <script>
+            function limpaTela() {
+                document.FormConhecimento.Limpar.onClick();
+            }
+        </script>
     </h:head>
 
     <h:body style="font-family: Arial; background-image: url('imagens/parede.jpg')">
@@ -55,13 +61,7 @@
                             <h:outputLabel value="Esclarecimento"/>
 
                             <p:inputTextarea value="#{conhecimentoControl.esclarecimento}" cols="100" rows="5"/>
-
-                            <br/>
-
-                            <h:outputLabel value="Arquivo: "/>
-                            <p:spacer width="10"/>
-                            <p:inputText value="#{conhecimentoControl.arquivo}"/>  
-
+                                 
                             <br/>
                             <br/>
 
@@ -75,7 +75,8 @@
                             <p:commandButton id="btnLimpar"
                                              value="Limpar"
                                              type="reset"
-                                             title="Limpar todos os campos"/>
+                                             title="Limpar todos os campos"
+                                             widgetVar="Limpar"/>
 
                             <p:commandButton value="Sair"
                                              action="index.xhtml" 
