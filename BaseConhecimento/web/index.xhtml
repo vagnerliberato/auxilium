@@ -24,12 +24,16 @@
 
         <h:form id="FormIndex" prependId="false">
             <center>
-                <h3>Base de Conhecimento</h3>
 
+                <p:panel>
+                    <h:graphicImage value="imagens/base.jpg" style="width: 50%;" /> 
+                </p:panel>
                 <!-- 
                   Menu principal.
                   Links para navegação do sistema.
                 -->
+
+                <br/>
 
                 <p:commandLink   action="cadConhecimento.xhtml" 
                                  value="+ Conhecimento" 
@@ -75,7 +79,7 @@
                                  update="conteudo"/>
 
                 <br/>
-                
+
                 <p:ajaxStatus>  
                     <f:facet name="start">
                         <h:graphicImage value="imagens/time.gif" /> 
