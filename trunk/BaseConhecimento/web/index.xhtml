@@ -186,7 +186,7 @@
                         <br/>
                         <h:outputLabel for="referencia" value="Referência: " style="font-weight: bold;"/>  
                         <br/>
-                        <h:outputText id="referencia" value="#{pesquisa.selecao.referencia}" style="color: #FF0000;" />
+                        <h:outputText id="referencia" value="#{pesquisa.selecao.referencia}" style="font-weight: bold; color: #FF0000;" />
                         <br/>
                         <h:outputLabel for="visual" value="Nº de visualizações: " style="font-weight: bold;"/>  
                         <br/>
@@ -208,13 +208,13 @@
                         <br/>
                         <h:outputLabel for="fato" value="Fato: " style="font-weight: bold;"/>
                         <br/>
-                        <h:outputText id="fato" value="#{pesquisa.selecao.fato}" style="color: rgb(0,0,255);" />
+                        <h:outputText id="fato" value="#{pesquisa.selecao.fato}" style="font-weight: bold; color: rgb(0,0,255);" />
                         <br/>
                         <p:separator />
                         <br/>                           
                         <h:outputLabel for="solucao" value="Esclarecimento: " style="font-weight: bold;"/>  
                         <br/>
-                        <h:outputText id="esclarecimento" value="#{pesquisa.selecao.esclarecimento}" style="color: rgb(0,0,255);" /> 
+                        <p:inputTextarea cols="65" rows="10" id="esclarecimento" value="#{pesquisa.selecao.esclarecimento}" style="font-weight: bold; width: 500;"/> 
                     </h:panelGrid>  
                 </p:outputPanel> 
             </p:dialog>

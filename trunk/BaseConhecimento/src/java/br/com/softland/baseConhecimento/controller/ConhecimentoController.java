@@ -11,7 +11,6 @@ import java.util.Date;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import org.primefaces.event.FileUploadEvent;
@@ -51,7 +50,7 @@ public class ConhecimentoController {
 
     public List<SelectItem> carregaAnalistas() {
         try {
-            String query = "select codigo, descricao from analista";
+            String query = "select codigo, descricao from analista order by descricao";
 
             PreparedStatement stm = ConexaoAgenda.getConnection().prepareStatement(query);
 
@@ -62,10 +61,6 @@ public class ConhecimentoController {
                 analistas.clear();
 
                 while (result.next()) {
-
-                    //AnalistaBean analista = new AnalistaBean();
-                    //analista.setCodigo(result.getString("codigo"));
-                    //analista.setNome(result.getString("descricao"));
 
                     SelectItem item = new SelectItem(result.getString("codigo"), result.getString("descricao"));
 
@@ -168,9 +163,9 @@ public class ConhecimentoController {
                 int gravacao = dao.addConhecimento(novo);
 
                 if (gravacao < 0) {
-                    setErro("Erro", "Não consegui grava novo conhecimento. \n Tente novamente.");
+                    setErro("Problemas...", "Não consegui grava novo conhecimento. \n Tente novamente.");
                 } else {
-                    setSucesso("OK", "Conhecimento gravado com sucesso!");
+                    setSucesso("Legal!", "Conhecimento gravado com sucesso!");
                 }
 
             } catch (Exception e) {
@@ -181,9 +176,15 @@ public class ConhecimentoController {
 
     public void fileUpload(FileUploadEvent event) {
         try {
-            setArquivo(""+event.getFile().getInputstream());
+            setArquivo("" + event.getFile().getInputstream());
         } catch (Exception erro) {
             setErro("Erro-Fatal", erro.getMessage());
         }
+    }
+
+    public void limparTela() {
+        this.referencia = null;
+        this.fato = null;
+        this.esclarecimento = null;
     }
 }
