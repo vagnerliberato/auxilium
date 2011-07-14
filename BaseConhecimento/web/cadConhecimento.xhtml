@@ -18,10 +18,12 @@
             }  
         </style> 
         
-        <script>
-            function limpaTela() {
-                document.FormConhecimento.Limpar.onClick();
-            }
+        <script language="JavaScript"> 
+           function limpa() {
+             document.getElementById('FormConhecimento:referencia').value = '';
+             document.getElementById('FormConhecimento:fato').value = '';
+             document.getElementById('FormConhecimento:esclarecimento').value = '';             
+           }
         </script>
     </h:head>
 
@@ -47,21 +49,21 @@
 
                             <h:outputLabel value="Referência"/>       
                             <p:spacer width="10"/>
-                            <p:inputText value="#{conhecimentoControl.referencia}"/>
+                            <p:inputText id="referencia" value="#{conhecimentoControl.referencia}" size="100"/>
 
                             <br/>
                             <br/>
 
                             <h:outputLabel value="Fato"/>
 
-                            <p:inputTextarea value="#{conhecimentoControl.fato}" maxHeight="500" cols="100" rows="5"/>
+                            <p:inputTextarea id="fato" value="#{conhecimentoControl.fato}" maxHeight="500" cols="100" rows="5"/>
 
                             <br/>
 
                             <h:outputLabel value="Esclarecimento"/>
 
-                            <p:inputTextarea value="#{conhecimentoControl.esclarecimento}" maxHeight="1000" cols="100" rows="5"/>
-                                 
+                            <p:inputTextarea id="esclarecimento" value="#{conhecimentoControl.esclarecimento}" maxHeight="1000" cols="100" rows="5"/>
+
                             <br/>
                             <br/>
 
@@ -70,13 +72,13 @@
                             <p:commandButton value="Gravar"
                                              actionListener="#{conhecimentoControl.validaNovoConhecimento}"
                                              title="Gravar novo conhecimento"
-                                             update="msgs"/>
+                                             update="msgs"
+                                             oncomplete="limpa();"/>
 
                             <p:commandButton id="btnLimpar"
                                              value="Limpar"
                                              type="reset"
-                                             title="Limpar todos os campos"
-                                             widgetVar="Limpar"/>
+                                             title="Limpar todos os campos"/>
 
                             <p:commandButton value="Sair"
                                              action="index.xhtml" 
@@ -86,6 +88,7 @@
                     </h:panelGrid>   
 
                     <p:messages id="msgs" showDetail="true"/>  
+
                 </h:form>
             </f:view>
         </center>

@@ -1,10 +1,3 @@
-/*
- * Documento   : Connection.java
- * Criação     : 14/05/2011
- * Autor       : arthemus
- * Descrição   : Classe java para conexão com os sgbd sql server, mysql e firebird.
- * Modificação : 14/05/2011
- */
 package br.com.softland.baseConhecimento.model.connection;
 
 import java.sql.*;
