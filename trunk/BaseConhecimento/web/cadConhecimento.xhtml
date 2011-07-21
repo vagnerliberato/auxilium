@@ -17,7 +17,7 @@
                 font-size: 12px !important;  
             }  
         </style> 
-        
+
         <script language="JavaScript"> 
            function limpa() {
              document.getElementById('FormConhecimento:referencia').value = '';
@@ -30,7 +30,11 @@
     <h:body style="font-family: Arial; background-image: url('imagens/parede.jpg')">
         <center>
 
-            <h3>Cadastro de Conhecimentos</h3>
+            <p:panel>
+                <h:graphicImage value="imagens/cadastro_2.jpg" style="width: 30%;" /> 
+            </p:panel>
+
+            <br/>
 
             <f:view contentType="text/html">
 
@@ -46,11 +50,11 @@
 
                             <br/>
                             <br/>
-
+                               
                             <h:outputLabel value="Referência"/>       
                             <p:spacer width="10"/>
                             <p:inputText id="referencia" value="#{conhecimentoControl.referencia}" size="100"/>
-
+                            
                             <br/>
                             <br/>
 
@@ -66,24 +70,23 @@
 
                             <br/>
                             <br/>
+                            <center>
+                                <p:commandButton value="Gravar"
+                                                 actionListener="#{conhecimentoControl.validaNovoConhecimento}"
+                                                 title="Gravar novo conhecimento"
+                                                 update="msgs"
+                                                 oncomplete="limpa();"/>
 
-                            <p:separator /> 
+                                <p:commandButton id="btnLimpar"
+                                                 value="Limpar"
+                                                 type="reset"
+                                                 title="Limpar todos os campos"/>
 
-                            <p:commandButton value="Gravar"
-                                             actionListener="#{conhecimentoControl.validaNovoConhecimento}"
-                                             title="Gravar novo conhecimento"
-                                             update="msgs"
-                                             oncomplete="limpa();"/>
-
-                            <p:commandButton id="btnLimpar"
-                                             value="Limpar"
-                                             type="reset"
-                                             title="Limpar todos os campos"/>
-
-                            <p:commandButton value="Sair"
-                                             action="index.xhtml" 
-                                             ajax="false"
-                                             title="Voltar para pagina inicial"/>
+                                <p:commandButton value="Sair"
+                                                 action="index.xhtml" 
+                                                 ajax="false"
+                                                 title="Voltar para pagina inicial"/>
+                            </center>
                         </p:panel>
                     </h:panelGrid>   
 

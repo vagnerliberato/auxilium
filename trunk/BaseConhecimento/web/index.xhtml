@@ -20,13 +20,13 @@
 
     </h:head>
 
-    <h:body style="font-family: Arial; background-image: url('imagens/parede.jpg')">
+    <h:body style="font-family: Tahoma; background-image: url('imagens/parede.jpg')">
 
         <h:form id="FormIndex" prependId="false">
             <center>
 
                 <p:panel>
-                    <h:graphicImage value="imagens/base.jpg" style="width: 50%;" /> 
+                    <h:graphicImage value="imagens/base_2.jpg" style="width: 30%;" /> 
                 </p:panel>
                 <!-- 
                   Menu principal.
@@ -35,56 +35,66 @@
 
                 <br/>
 
-                <p:commandLink   action="cadConhecimento.xhtml" 
-                                 value="+ Conhecimento" 
-                                 ajax="false"
-                                 title="Cadastrar um novo Conhecimento"
-                                 disabled="false"
-                                 actionListener="#{conhecimentoControl.carregaAnalistas}"/>  
+                <p:toolbar>  
+                    <p:toolbarGroup align="center">  
+                        <p:commandButton type="push" 
+                                         value="Novo Conhecimento" 
+                                         title="Cadastrar um novo Conhecimento"
+                                         ajax="false"
+                                         actionListener="#{conhecimentoControl.carregaAnalistas}"
+                                         action="cadConhecimento.xhtml" />  
 
-                <p:spacer width="10"/>
+                        <p:spacer width="10"/>
+                        <p:divider />
+                        <p:spacer width="10"/>
 
-                <p:commandLink   action="listaArtigos.xhtml"
-                                 ajax="false"
-                                 value="Artigos" 
-                                 title="Artigos diversos, docs, tutorias, apostilas, informativos..."
-                                 disabled="true"/>
+                        <p:commandButton type="push" 
+                                         value="Artigos" 
+                                         title="Artigos diversos, docs, tutorias, apostilas, informativos..."
+                                         ajax="false"
+                                         actionListener="#{conhecimentoControl.carregaAnalistas}"
+                                         action="listaArtigos.xhtml" />
 
-                <p:spacer width="10"/>
+                        <p:spacer width="10"/>
+                        <p:divider />
+                        <p:spacer width="10"/>
 
-                <p:commandLink   action="sobre.xhtml"
-                                 ajax="false"
-                                 value="Sobre" 
-                                 title="Informações sobre a Base de Conhecimento"
-                                 disabled="true"/>
+                        <p:commandButton type="push" 
+                                         value="Sobre" 
+                                         title="Informações sobre a Base de Conhecimento"
+                                         ajax="false"
+                                         actionListener="#{conhecimentoControl.carregaAnalistas}"
+                                         action="sobre.xhtml" />
+
+                    </p:toolbarGroup>   
+                </p:toolbar>
 
                 <!-- Fim Menu -->
 
                 <br/>
-                <p:separator />
                 <br/>
 
                 <!-- Campo de pesquisa -->
 
                 <p:focus for="pesquisa"/>
 
-                <h:outputLabel value="Pesquisar por: "/>
+                <h:outputLabel value="Pesquisar por: " style="font-weight: bold; font-family: Tahoma;"/>
 
                 <p:inputText id="pesquisa"
-                             value="#{pesquisa.pesquisa}" 
-                             immediate="true"/>
+                             value="#{pesquisa.pesquisa}"/>
 
-                <p:commandButton value="Confirma"
+                <p:commandButton id="confirma"
+                                 value="Confirma"
                                  actionListener="#{pesquisa.carregaPesquisa}"
                                  update="conteudo"/>
-
+                
                 <br/>
 
                 <p:ajaxStatus>  
                     <f:facet name="start">
                         <h:graphicImage value="imagens/time.gif" /> 
                         <br/>
-                        <h:outputText value="Pesquisando..." />   
+                        <h:outputText value="Pesquisando..." style="font-family: Tahoma;" />   
                     </f:facet>  
 
                     <f:facet name="complete">  
@@ -110,12 +120,7 @@
                             id="conteudo">  
 
                     <p:column>  
-                        <p:panel header="#{item.referencia}" 
-                                 style="text-align:center"
-                                 toggleable="true"
-                                 toggleSpeed="500"
-                                 id="conteudoUni">  
-
+                        <p:fieldset legend="#{item.referencia}" id="conteudoUni">
                             <h:panelGrid columns="1" 
                                          style="width:100%">  
 
@@ -127,7 +132,8 @@
                                                update="pnlDetalhes" 
                                                oncomplete="dlgConhecimento.show()" 
                                                title="Detalhes do conhecimento"
-                                               value="+ Detalhes">  
+                                               value="+ Detalhes"
+                                               style="font-family: Tahoma;">  
 
                                     <f:setPropertyActionListener value="#{item}"   
                                                                  target="#{pesquisa.selecao}" />
@@ -147,7 +153,7 @@
                                     </p:submenu>  
                                 </p:menu>  
                             </f:facet>
-                        </p:panel>  
+                        </p:fieldset>
                     </p:column>
                 </p:dataGrid>
 
@@ -178,21 +184,21 @@
                       height="600" 
                       width="500">  
 
-                <p:outputPanel id="pnlDetalhes" style="text-align:left;">    
+                <p:outputPanel id="pnlDetalhes" style="text-align:left; font-family: Tahoma;">    
                     <h:panelGrid  columns="2" cellpadding="5">  
-                        <h:outputLabel for="analista" value="Analista: " style="font-weight: bold;"/>  
+                        <h:outputLabel for="analista" value="Analista: " style="font-weight: bold; font-family: Tahoma;"/>  
                         <br/>
                         <h:outputText id="analista" value="#{pesquisa.selecao.analista}" />
                         <br/>
-                        <h:outputLabel for="referencia" value="Referência: " style="font-weight: bold;"/>  
+                        <h:outputLabel for="referencia" value="Referência: " style="font-weight: bold; font-family: Tahoma;"/>  
                         <br/>
-                        <h:outputText id="referencia" value="#{pesquisa.selecao.referencia}" style="font-weight: bold; color: #FF0000;" />
+                        <h:outputText id="referencia" value="#{pesquisa.selecao.referencia}" style="font-weight: bold; color: #FF0000; font-family: Tahoma;" />
                         <br/>
-                        <h:outputLabel for="visual" value="Nº de visualizações: " style="font-weight: bold;"/>  
+                        <h:outputLabel for="visual" value="Nº de visualizações: " style="font-weight: bold; font-family: Tahoma;"/>  
                         <br/>
                         <h:outputText id="visual" value="#{pesquisa.selecao.visual}" />
                         <br/>
-                        <h:outputLabel for="data" value="Data de Cadastro: " style="font-weight: bold;"/>  
+                        <h:outputLabel for="data" value="Data de Cadastro: " style="font-weight: bold; font-family: Tahoma;"/>  
                         <br/>
                         <h:outputText id="data" value="#{pesquisa.selecao.data}">
                             <f:convertDateTime dateStyle = "full"/>
@@ -206,15 +212,15 @@
                         <br/>
                         <p:separator />
                         <br/>
-                        <h:outputLabel for="fato" value="Fato: " style="font-weight: bold;"/>
+                        <h:outputLabel for="fato" value="Fato: " style="font-weight: bold; font-family: Tahoma;"/>
                         <br/>
-                        <h:outputText id="fato" value="#{pesquisa.selecao.fato}" style="font-weight: bold; color: rgb(0,0,255);" />
+                        <h:outputText id="fato" value="#{pesquisa.selecao.fato}" style="font-weight: bold; color: rgb(0,0,255); font-family: Tahoma;" />
                         <br/>
                         <p:separator />
                         <br/>                           
-                        <h:outputLabel for="solucao" value="Esclarecimento: " style="font-weight: bold;"/>  
+                        <h:outputLabel for="solucao" value="Esclarecimento: " style="font-weight: bold; font-family: Tahoma;"/>  
                         <br/>
-                        <p:inputTextarea cols="65" rows="10" id="esclarecimento" value="#{pesquisa.selecao.esclarecimento}" style="font-weight: bold; width: 500;"/> 
+                        <p:inputTextarea cols="65" rows="10" id="esclarecimento" value="#{pesquisa.selecao.esclarecimento}" style="font-weight: bold; width: 500; font-family: Tahoma;"/> 
                     </h:panelGrid>  
                 </p:outputPanel> 
             </p:dialog>
