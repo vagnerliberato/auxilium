@@ -61,3 +61,31 @@ COMMIT WORK;
 
 /* Fim - Arthemus - 07/07/2011 */
 
+/* Inicio - Arthemus - 16/07/2011 */
+
+/* Criação da procedure SP_PUBLICA_LIGACAO, que vai ser usada na agenda para cadastrar as ligação atendidas na Base de Conhecimento */
+
+CREATE OR ALTER procedure SP_PUBLICA_LIGACAO (
+    ANALISTA char(2),
+    REFERENCIA char(100),
+    FATO varchar(500),
+    ESCLARECIMENTO blob sub_type 0 segment size 80,
+    VISUAL integer,
+    CAMPO varchar(35),
+    DATA date,
+    ARQUIVO varchar(255))
+as
+declare variable ID_CONHECIMENTO integer;
+BEGIN
+  SELECT MAX(ID_CONHECIMENTO) + 1
+  FROM CONHECIMENTO
+  INTO :ID_CONHECIMENTO;
+
+  INSERT INTO CONHECIMENTO
+  VALUES (:ID_CONHECIMENTO, :ANALISTA, :REFERENCIA, :FATO, :ESCLARECIMENTO, :VISUAL, :CAMPO, :DATA, :ARQUIVO);
+END;
+
+COMMIT;
+
+/* Fim - Arthemus - 16/07/2011 */
+
