@@ -12,6 +12,8 @@
     <h:head>
         <title>Base de Conhecimento</title>
 
+        <link rel="shortcut icon" href="imagens/B.ico" type="image/x-icon" />
+
         <style type="text/css">  
             .ui-widget {  
                 font-size: 12px !important;
@@ -29,12 +31,148 @@
                 </p:panel>
 
                 <br/>
+
+                <p:panel id="panel" style="background-image: url('imagens/parede.jpg')">
+
+                    <h:outputLabel value="O Sitema" style="font-weight: bold; font-family: Tahoma;"/>
+
+                    <br/>
+                    <br/>
+
+                    <h:outputText value="A Base de Conhecimento tem como objetivo 
+                                  fornecer o máximo de informação possível para o 
+                                  Analista sem a necessidade de uma pesquisa mais 
+                                  demorada ou complexa. Com uma palavra chave 
+                                  já possível listar casos e artigos que contenham 
+                                  informações ou referências a determinado assunto 
+                                  ou acontecimento já vivenciado 
+                                  e resolvido por outra pessoa."
+                                  style="font-family: Tahoma;"/>
+
+                    <br/>
+                    <br/>
+
+                    <h:outputText value="O sistema destina-se a todos os 
+                                  setores da empresa, pode conter informações 
+                                  sobre a correção de um erro ou funcionamento 
+                                  do sistema, para ajudar o Suporte a estar 
+                                  solucionando atendimentos com maior agilidade, 
+                                  como pode também conter Scripts e regras de 
+                                  negócio ajudando o Desenvolvimento na solução 
+                                  de um problema ou construção de um novo módulo."
+                                  style="font-family: Tahoma;"/>
+
+                    <br/>
+                    <br/>
+
+                    <h:outputLabel value="Informações técnicas" style="font-weight: bold; font-family: Tahoma;"/>
+
+                    <br/>
+                    <br/>
+
+                    <h:outputText value="Todo o sistema foi construído 
+                                  utilizando a linguagem “Java” com foco na 
+                                  tecnologia “JSF 2.0” (Java Server Faces), 
+                                  que permite a criação do sistema totalmente 
+                                  voltado para web, rodando em um Browser 
+                                  comum, com páginas dinâmicas, leves e robustas."
+                                  style="font-family: Tahoma;"/>
+
+                    <br/>
+                    <br/>
+
+                    <h:outputLabel value="Link de referência: " style="font-weight: bold; font-family: Tahoma;"/>
+                    <a href="http://pt.wikipedia.org/wiki/JavaServer_Faces" target="_blank">
+                        http://pt.wikipedia.org/wiki/JavaServer_Faces
+                    </a>
+
+                    <br/>
+                    <br/>
+
+                    <h:outputText value="Para a construção dos componentes foi 
+                                  utilizada a Biblioteca “Primefaces 2.2.1”."
+                                  style="font-family: Tahoma;"/>
+
+                    <br/>
+                    <br/>
+
+                    <h:outputLabel value="Link de referência: " style="font-weight: bold; font-family: Tahoma;"/>
+                    <a href="http://www.primefaces.org/" target="_blank">
+                        http://www.primefaces.org/
+                    </a>
+
+                    <br/>
+                    <br/>
+
+                    <h:outputText value="O banco de dados utilizado é o Firebird 2.1."
+                                  style="font-family: Tahoma;"/>
+
+                    <br/>
+                    <br/>
+
+                    <h:outputText value="Atualmente o sistema esta utilizando a 
+                                  mesma base de dados do sistema “Agenda”, para 
+                                  melhor interação com o cadastro de Analistas 
+                                  e outros cadastros da empresa."
+                                  style="font-family: Tahoma;"/>
+
+                    <br/>
+
+                    <h:outputText value="As tabelas utilizadas atualmente pelo sistema são:"
+                                  style="font-family: Tahoma;"/>
+
+                    <br/>
+                    <br/>
+
+                    <h:outputLabel value="ANALISTA - CONHECIMENTO - TAG - CONTROLETAG" style="font-weight: bold; font-family: Tahoma;"/>
+
+                    <br/>
+                    <br/>
+
+                    <h:outputLabel value="SubVersion" style="font-weight: bold; font-family: Tahoma;"/>
+
+                    <br/>
+                    <br/>
+
+                    <h:outputLabel value="O projeto da Base de Conhecimento pode ser versionada pela Url: "
+                                   style="font-family: Tahoma;"/>
+                    <b>
+                    <a href="https://auxilium.googlecode.com/svn/trunk" target="_blank">
+                        https://auxilium.googlecode.com/svn/trunk
+                    </a>
+                    </b>    
+
+                    <br/>
+
+                    <h:outputText value="* Não é possível commitar alterações 
+                                  feitas no projeto sem que antes o usuário 
+                                  seja adicionado como membro Administrador do projeto." style="font-weight: bold; font-family: Tahoma;"/>
+
+                    <br/>
+                    <br/>
+
+                    <h:outputLabel value="Desenvolvimento" style="font-weight: bold; font-family: Tahoma;"/>
+                    <br/>
+                    <br/>
+                    <h:outputText value="Vagner Liberato Davi - Arthemus C. Moreira"
+                                  style="font-family: Tahoma;"/>
+                    <br/>
+                    <br/>
+                    <h:outputLabel value="Imagens" style="font-weight: bold; font-family: Tahoma;"/>
+                    <br/>
+                    <br/>
+                    <h:outputText value="Gabriella de Andrade Sanches"
+                                  style="font-family: Tahoma;"/>    
+                </p:panel>
+
+                <br/>
                 
-                <p:commandButton   action="index.xhtml"
-                                   value="Voltar" 
-                                   ajax="false"
-                                   title="Voltar para a página principal"
-                                   disabled="false"/>
+                <center>
+                    <p:commandButton value="Voltar"
+                                     action="index.xhtml" 
+                                     ajax="false"
+                                     title="Voltar para pagina inicial"/>
+                </center>
 
             </h:form>
         </center>    
