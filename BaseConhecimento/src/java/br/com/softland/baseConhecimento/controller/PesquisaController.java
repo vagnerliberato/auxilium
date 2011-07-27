@@ -104,18 +104,17 @@ public class PesquisaController {
 
     public List<ConhecimentoBean> carregaPesquisa() {
 
-        if (getPesquisa().isEmpty()) {
-            return null;
-        }
+        if (getPesquisa().isEmpty()) { return null; }
 
         try {
             ConhecimentoDAO dao = new ConhecimentoDAO();
 
-            this.dados = dao.BuscaConhecimento(getPesquisa());
-            
+            this.dados = dao.BuscaConhecimento(this.getPesquisa());
+
             if (dados == null) {
-                setMsg("Pesquisa", "Que pena, não foi encontrado nenhum resultado para sua"+
-                        "sua pesquisa. \n Reescreva seu titulo e tente novamente.");
+                setMsg("Pesquisa", "Que pena, não foi encontrado nenhum resultado para sua"
+                        + "sua pesquisa. \n Reescreva seu titulo e tente novamente.");
+                
                 return null;
             } else {
                 return this.dados;
@@ -127,10 +126,19 @@ public class PesquisaController {
         }
     }
 
-    public void atualizaVisualizacao() {
+    public void atualizaVisualizacao(ConhecimentoBean conhecimento) {
         try {
             ConhecimentoDAO dao = new ConhecimentoDAO();
-            dao.updateVisual(selecao.getId_Conhecimento());
+            dao.updateVisual(conhecimento.getId_Conhecimento());
+        } catch (Exception erro) {
+            setErro("Erro-Fatal", erro.getMessage());
+        }
+    }
+
+    public void updateConhecimento() {
+        try {
+            ConhecimentoDAO dao = new ConhecimentoDAO();
+            dao.updateConhecimento(this.getSelecao());
         } catch (Exception erro) {
             setErro("Erro-Fatal", erro.getMessage());
         }
