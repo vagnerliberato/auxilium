@@ -5,7 +5,6 @@ import br.com.softland.baseConhecimento.bean.TagBean;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -30,7 +29,7 @@ public class ConhecimentoDAO extends GenericDAO {
 
     public void updateConhecimento(ConhecimentoBean con) throws SQLException {
         String query = "UPDATE CONHECIMENTO SET ANALISTA=?, REFERENCIA=?, FATO=?, ESCLARECIMENTO=?, VISUAL=?, CAMPO=?, DATA=? WHERE ID_CONHECIMENTO=?";
-        executeCommand(query, con.getAnalista(), con.getReferencia(), con.getFato(), con.getEsclarecimento(), con.getVisual(), con.getCampo(), con.getData(), con.getId_Conhecimento());
+        executeCommand(query, con.getIDAnalista().trim(), con.getReferencia().trim(), con.getFato().trim(), con.getEsclarecimento().trim(), con.getVisual(), con.getCampo().trim(), con.getData(), con.getId_Conhecimento());
 
         for (TagBean tags : con.getTags()) {
             updateTags(tags);
@@ -71,7 +70,7 @@ public class ConhecimentoDAO extends GenericDAO {
             String[] pedacos = dadosbusca.split("\\s");
 
             //A Select abaixo recebe a primeira palavra digitada pelo usuário.
-            querySQL.append("SELECT c.ID_CONHECIMENTO, c.REFERENCIA, c.FATO, c.ESCLARECIMENTO, a.DESCRICAO, c.VISUAL, c.CAMPO, c.DATA, c.ARQUIVO "
+            querySQL.append("SELECT c.ID_CONHECIMENTO, c.REFERENCIA, c.FATO, c.ESCLARECIMENTO, a.CODIGO, a.DESCRICAO, c.VISUAL, c.CAMPO, c.DATA, c.ARQUIVO "
                     + "FROM CONHECIMENTO C "
                     + "INNER JOIN ANALISTA A ON (C.ANALISTA = A.CODIGO) "
                     + "LEFT JOIN CONTROLETAG CT ON (CT.ID_CONHECIMENTO = C.ID_CONHECIMENTO) "
@@ -90,7 +89,7 @@ public class ConhecimentoDAO extends GenericDAO {
             }
 
             // Fiz o agrupamento para trazer os melhores resultados conforme os dados mencionados pelo usuário.
-            querySQL.append(" GROUP BY c.ID_CONHECIMENTO, c.REFERENCIA, c.FATO, c.ESCLARECIMENTO, a.DESCRICAO, c.VISUAL, c.CAMPO, c.DATA, c.ARQUIVO");
+            querySQL.append(" GROUP BY c.ID_CONHECIMENTO, c.REFERENCIA, c.FATO, c.ESCLARECIMENTO, a.CODIGO, a.DESCRICAO, c.VISUAL, c.CAMPO, c.DATA, c.ARQUIVO");
 
             ResultSet rs = executeQuery(querySQL.toString());
 
@@ -101,6 +100,7 @@ public class ConhecimentoDAO extends GenericDAO {
                 while (rs.next()) {
                     ConhecimentoBean conhecimento = new ConhecimentoBean();
 
+                    conhecimento.setIDAnalista(rs.getString("CODIGO"));
                     conhecimento.setAnalista(rs.getString("DESCRICAO"));
                     conhecimento.setCampo(rs.getString("CAMPO"));
                     conhecimento.setData(rs.getDate("DATA"));

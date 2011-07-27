@@ -8,6 +8,7 @@ public class ConhecimentoBean {
 
     private int Id_Conhecimento = 0;
     private String Analista = null;
+    private String IDAnalista = null;
     private String Referencia = null;
     private String Fato = null;
     private String Esclarecimento = null;
@@ -31,6 +32,14 @@ public class ConhecimentoBean {
 
     public void setArquivo(String Arquivo) {
         this.Arquivo = Arquivo;
+    }
+
+    public String getIDAnalista() {
+        return IDAnalista;
+    }
+
+    public void setIDAnalista(String IDAnalista) {
+        this.IDAnalista = IDAnalista;
     }
 
     public String getAnalista() {

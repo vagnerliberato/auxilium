@@ -33,7 +33,7 @@
 
                 <!-- Campo de pesquisa -->
                 <br/>
-                
+
                 <p:focus for="pesquisa"/>
 
                 <h:outputLabel value="Pesquisar por: " style="font-weight: bold; font-family: Tahoma;"/>
@@ -105,9 +105,8 @@
 
                                 <br/>
 
-                                <p:commandLink actionListener="#{pesquisa.atualizaVisualizacao}"
-                                               update="pnlDetalhes" 
-                                               oncomplete="dlgConhecimento.show()" 
+                                <p:commandLink update="pnlDetalhes" 
+                                               oncomplete="dlgConhecimento.show() #{pesquisa.atualizaVisualizacao(pesquisa.selecao)}" 
                                                title="Detalhes do conhecimento"
                                                value="+ Detalhes"
                                                style="font-family: Tahoma;">  
@@ -116,20 +115,6 @@
                                                                  target="#{pesquisa.selecao}" />
                                 </p:commandLink>  
                             </h:panelGrid>
-
-                            <f:facet name="options">  
-                                <p:menu>  
-                                    <p:submenu label="Opções">  
-                                        <p:menuitem value="Exportar para PDF">
-
-                                            <f:setPropertyActionListener value="#{item}"   
-                                                                         target="#{pesquisa.selecao}" /> 
-
-                                            <p:dataExporter id="exPdf" type="pdf" target="conteudo" fileName="Pesquisa" />
-                                        </p:menuitem>
-                                    </p:submenu>  
-                                </p:menu>  
-                            </f:facet>
                         </p:fieldset>
                     </p:column>
                 </p:dataGrid>
@@ -159,39 +144,67 @@
                       showEffect="true"
                       modal="true" 
                       height="600" 
-                      width="500">  
+                      width="800"> 
 
-                <p:outputPanel id="pnlDetalhes" style="text-align:left; font-family: Tahoma;">    
-                    <h:panelGrid  columns="2" cellpadding="5">  
-                        <h:outputLabel for="analista" value="Analista: " style="font-weight: bold; font-family: Tahoma;"/>  
+                <p:outputPanel id="pnlDetalhes" 
+                               style="text-align:left; font-family: Tahoma;">    
+
+                    <h:panelGrid  columns="2" 
+                                  cellpadding="5" 
+                                  title="Clique sobre a Referência, Fato ou Esclarecimento se deseja altera-los.">  
+
+                        <h:outputLabel for="analista" 
+                                       value="Analista: " 
+                                       style="font-weight: bold; font-family: Tahoma;"/>  
                         <br/>
-                        <h:outputText id="analista" value="#{pesquisa.selecao.analista}" />
+                        <h:outputText id="analista" 
+                                      value="#{pesquisa.selecao.analista}" />
                         <br/>
-                        <h:outputLabel for="referencia" value="Referência: " style="font-weight: bold; font-family: Tahoma;"/>  
+                        <h:outputLabel for="referencia" 
+                                       value="Referência: " 
+                                       style="font-weight: bold; font-family: Tahoma;"/>  
                         <br/>
-                        <h:outputText id="referencia" value="#{pesquisa.selecao.referencia}" style="font-weight: bold; color: #FF0000; font-family: Tahoma;" />
+                        <p:inplace editor="true"                                    
+                                   saveListener="#{pesquisa.updateConhecimento}">  
+                            <p:inputText value="#{pesquisa.selecao.referencia}"
+                                         size="100"/>  
+                        </p:inplace> 
                         <br/>
-                        <h:outputLabel for="visual" value="Nº de visualizações: " style="font-weight: bold; font-family: Tahoma;"/>  
+                        <h:outputLabel for="visual" 
+                                       value="Nº de visualizações: " 
+                                       style="font-weight: bold; font-family: Tahoma;"/>  
                         <br/>
-                        <h:outputText id="visual" value="#{pesquisa.selecao.visual}" />
+                        <h:outputText id="visual" 
+                                      value="#{pesquisa.selecao.visual}" />
                         <br/>
-                        <h:outputLabel for="data" value="Data de Cadastro: " style="font-weight: bold; font-family: Tahoma;"/>  
+                        <h:outputLabel for="data" 
+                                       value="Data de Cadastro: " 
+                                       style="font-weight: bold; font-family: Tahoma;"/>  
                         <br/>
-                        <h:outputText id="data" value="#{pesquisa.selecao.data}">
+                        <h:outputText id="data" 
+                                      value="#{pesquisa.selecao.data}">
                             <f:convertDateTime dateStyle = "full"/>
                         </h:outputText>    
                         <br/>
-                        <p:separator />
+                        <h:outputLabel for="fato" 
+                                       value="Fato: " 
+                                       style="font-weight: bold; font-family: Tahoma;"/>
                         <br/>
-                        <h:outputLabel for="fato" value="Fato: " style="font-weight: bold; font-family: Tahoma;"/>
-                        <br/>
-                        <h:outputText id="fato" value="#{pesquisa.selecao.fato}" style="font-weight: bold; color: rgb(0,0,255); font-family: Tahoma;" />
-                        <br/>
-                        <p:separator />
+                        <p:inplace editor="true"                                  
+                                   saveListener="#{pesquisa.updateConhecimento}">  
+                            <p:inputTextarea value="#{pesquisa.selecao.fato}"
+                                             maxHeight="500" cols="100" rows="5"/>  
+                        </p:inplace> 
                         <br/>                           
-                        <h:outputLabel for="solucao" value="Esclarecimento: " style="font-weight: bold; font-family: Tahoma;"/>  
+                        <h:outputLabel for="solucao" 
+                                       value="Esclarecimento: " 
+                                       style="font-weight: bold; font-family: Tahoma;"/>  
                         <br/>
-                        <p:inputTextarea cols="65" rows="10" id="esclarecimento" value="#{pesquisa.selecao.esclarecimento}" style="font-weight: bold; width: 500; font-family: Tahoma;"/> 
+                        <p:inplace editor="true"                                    
+                                   saveListener="#{pesquisa.updateConhecimento}">  
+                            <p:inputTextarea value="#{pesquisa.selecao.esclarecimento}"
+                                             cols="100" rows="5"/>  
+                        </p:inplace>                         
                     </h:panelGrid>  
                 </p:outputPanel> 
             </p:dialog>
