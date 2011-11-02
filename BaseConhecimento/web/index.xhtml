@@ -166,8 +166,11 @@
                         <br/>
                         <p:inplace editor="true"                                    
                                    saveListener="#{pesquisa.updateConhecimento}">  
-                            <p:inputText value="#{pesquisa.selecao.referencia}"
-                                         size="100"/>  
+                            <p:inputText value="#{pesquisa.selecao.referencia}" 
+                                         size="100">
+                                <f:validateLength minimum="1" />
+                            </p:inputText>  
+
                         </p:inplace> 
                         <br/>
                         <h:outputLabel for="visual" 
@@ -185,6 +188,13 @@
                                       value="#{pesquisa.selecao.data}">
                             <f:convertDateTime dateStyle = "full"/>
                         </h:outputText>    
+                        <br/>
+                        <h:outputLabel for="Palavras Chave" 
+                                       value="Palavras Chave: " 
+                                       style="font-weight: bold; font-family: Tahoma;"/>
+                        <br/>
+                        <h:outputText id="nomeTags" 
+                                      value="#{pesquisa.nomeTags}" style="font-weight: bold; font-family: Tahoma; color: red"/>
                         <br/>
                         <h:outputLabel for="fato" 
                                        value="Fato: " 

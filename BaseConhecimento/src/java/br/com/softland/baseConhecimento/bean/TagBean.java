@@ -1,13 +1,10 @@
 package br.com.softland.baseConhecimento.bean;
 
 public class TagBean {
-    
+
     private int Id_Tag = 0;
     private String Nome = null;
 
-    public TagBean() {
-    }   
-    
     public int getId_Tag() {
         return Id_Tag;
     }
@@ -23,6 +20,4 @@ public class TagBean {
     public void setNome(String Nome) {
         this.Nome = Nome;
     }
-    
-    
 }

@@ -13,7 +13,7 @@
         <title>Base de Conhecimento</title>
 
         <link rel="shortcut icon" href="imagens/B.ico" type="image/x-icon" />
-        
+
         <style type="text/css">  
             .ui-widget {  
                 font-size: 12px !important;  
@@ -24,7 +24,7 @@
            function limpa() {
              document.getElementById('FormConhecimento:referencia').value = '';
              document.getElementById('FormConhecimento:fato').value = '';
-             document.getElementById('FormConhecimento:esclarecimento').value = '';             
+             document.getElementById('FormConhecimento:esclarecimento').value = '';                          
            }
         </script>
     </h:head>
@@ -52,11 +52,11 @@
 
                             <br/>
                             <br/>
-                               
+
                             <h:outputLabel value="Referência"/>       
                             <p:spacer width="10"/>
                             <p:inputText id="referencia" value="#{conhecimentoControl.referencia}" size="100"/>
-                            
+
                             <br/>
                             <br/>
 
@@ -71,7 +71,59 @@
                             <p:inputTextarea id="esclarecimento" value="#{conhecimentoControl.esclarecimento}" maxHeight="1000" cols="100" rows="5"/>
 
                             <br/>
+
+                            <p:panel header="Tags - Palavras Chaves" style="width: 500px">  
+                                <h:panelGrid columns="5" id="grid">  
+                                    <h:outputLabel value="Tag : *" for="txt_title"></h:outputLabel>  
+                                    <p:inputText id="txt_title" style="width: 250px"   
+                                                 value="#{conhecimentoControl.tag.nome}"/>  
+
+
+                                    <p:commandButton value="Adicionar"  
+                                                     action="#{conhecimentoControl.NovaTag}"
+                                                     update="montaTag @parent" >  
+                                        <p:collector value="#{conhecimentoControl.tag}"   
+                                                     addTo="#{conhecimentoControl.listaTags}"/>  
+                                    </p:commandButton>  
+                                    <p:commandButton value="Limpar" type="reset"/> 
+                                </h:panelGrid>  
+                            </p:panel> 
+
+                            <p:ajaxStatus style="width:16px;height:16px;">  
+                                <f:facet name="start">  
+                                    <h:graphicImage value="imagens/img_Ajax_loading.gif"/>  
+                                </f:facet>  
+
+                                <f:facet name="complete">  
+                                    <h:outputText value="" />  
+                                </f:facet>  
+                            </p:ajaxStatus>  
+
+                            <p:outputPanel id="montaTag">  
+                                <p:dataTable value="#{conhecimentoControl.listaTags}" var="tabela" emptyMessage="Vázio" style="width: 300px">  
+
+                                    <p:column>  
+                                        <f:facet name="header">  
+                                            <h:outputText value="Nome Tag"/>  
+                                        </f:facet>  
+                                        <h:outputText value="#{tabela.nome}" />  
+                                    </p:column>  
+
+                                    <p:column>  
+                                        <f:facet name="header">  
+                                            <h:outputText value="Operação" />  
+                                        </f:facet>  
+                                        <p:commandLink value="Remover" update="FormConhecimento:montaTag" process="@this">  
+                                            <p:collector value="#{tabela}"  
+                                                         removeFrom="#{conhecimentoControl.listaTags}" />  
+                                        </p:commandLink>  
+                                    </p:column>  
+
+                                </p:dataTable>  
+                            </p:outputPanel>  
+
                             <br/>
+
                             <center>
                                 <p:commandButton value="Gravar"
                                                  actionListener="#{conhecimentoControl.validaNovoConhecimento}"

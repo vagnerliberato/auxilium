@@ -1,0 +1,168 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 01/11/2011 21:54:22 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="br.com.softland.baseConhecimento.entity.Clientes" table="CLIENTES">
+        <id name="codCli" type="string">
+            <column name="COD_CLI" length="15" />
+            <generator class="assigned" />
+        </id>
+        <property name="razao" type="string">
+            <column name="RAZAO" length="55" not-null="true" />
+        </property>
+        <property name="endCli" type="string">
+            <column name="END_CLI" length="40" />
+        </property>
+        <property name="baiCli" type="string">
+            <column name="BAI_CLI" length="20" />
+        </property>
+        <property name="cidCli" type="string">
+            <column name="CID_CLI" length="25" />
+        </property>
+        <property name="estCli" type="string">
+            <column name="EST_CLI" length="2" />
+        </property>
+        <property name="cepCli" type="string">
+            <column name="CEP_CLI" length="8" />
+        </property>
+        <property name="cgcCli" type="string">
+            <column name="CGC_CLI" length="14" />
+        </property>
+        <property name="contato" type="string">
+            <column name="CONTATO" length="30" />
+        </property>
+        <property name="fonCli" type="string">
+            <column name="FON_CLI" length="15" />
+        </property>
+        <property name="rgCli" type="string">
+            <column name="RG_CLI" length="14" />
+        </property>
+        <property name="dtNasc" type="timestamp">
+            <column name="DT_NASC" length="19" />
+        </property>
+        <property name="endCob" type="string">
+            <column name="END_COB" length="40" />
+        </property>
+        <property name="baiCob" type="string">
+            <column name="BAI_COB" length="20" />
+        </property>
+        <property name="cidCob" type="string">
+            <column name="CID_COB" length="25" />
+        </property>
+        <property name="estCob" type="string">
+            <column name="EST_COB" length="2" />
+        </property>
+        <property name="cepCob" type="string">
+            <column name="CEP_COB" length="8" />
+        </property>
+        <property name="endEnt" type="string">
+            <column name="END_ENT" length="40" />
+        </property>
+        <property name="baiEnt" type="string">
+            <column name="BAI_ENT" length="20" />
+        </property>
+        <property name="cidEnt" type="string">
+            <column name="CID_ENT" length="25" />
+        </property>
+        <property name="estEnt" type="string">
+            <column name="EST_ENT" length="2" />
+        </property>
+        <property name="cepEnt" type="string">
+            <column name="CEP_ENT" length="8" />
+        </property>
+        <property name="cpfCli" type="string">
+            <column name="CPF_CLI" length="11" />
+        </property>
+        <property name="fonCli2" type="string">
+            <column name="FON_CLI2" length="15" />
+        </property>
+        <property name="fax" type="string">
+            <column name="FAX" length="17" />
+        </property>
+        <property name="pessoa" type="string">
+            <column name="PESSOA" length="1" />
+        </property>
+        <property name="campo" type="string">
+            <column name="CAMPO" length="30" />
+        </property>
+        <property name="email" type="string">
+            <column name="EMAIL" length="60" />
+        </property>
+        <property name="emailContato" type="string">
+            <column name="EMAIL_CONTATO" length="60" />
+        </property>
+        <property name="site" type="string">
+            <column name="SITE" length="60" />
+        </property>
+        <property name="ramo" type="java.lang.Short">
+            <column name="RAMO" />
+        </property>
+        <property name="nomefan" type="string">
+            <column name="NOMEFAN" length="20" unique="true" />
+        </property>
+        <property name="minuto" type="java.lang.Integer">
+            <column name="MINUTO" />
+        </property>
+        <property name="particular" type="java.lang.Character">
+            <column name="PARTICULAR" length="1" />
+        </property>
+        <property name="ipe" type="string">
+            <column name="IPE" length="15" />
+        </property>
+        <property name="hora" type="string">
+            <column name="HORA" length="15" />
+        </property>
+        <property name="tipo" type="java.lang.Character">
+            <column name="TIPO" length="1" />
+        </property>
+        <property name="maquina" type="java.lang.Integer">
+            <column name="MAQUINA" />
+        </property>
+        <property name="rede" type="java.lang.Character">
+            <column name="REDE" length="1" />
+        </property>
+        <property name="situafin" type="string">
+            <column name="SITUAFIN" length="2" />
+        </property>
+        <property name="produto" type="string">
+            <column name="PRODUTO" length="2" />
+        </property>
+        <property name="vigencia" type="timestamp">
+            <column name="VIGENCIA" length="19" />
+        </property>
+        <property name="expiracao" type="timestamp">
+            <column name="EXPIRACAO" length="19" />
+        </property>
+        <property name="historico" type="binary">
+            <column name="HISTORICO" />
+        </property>
+        <property name="pendencia" type="binary">
+            <column name="PENDENCIA" />
+        </property>
+        <property name="udata" type="timestamp">
+            <column name="UDATA" length="19" />
+        </property>
+        <property name="situacao" type="java.lang.Integer">
+            <column name="SITUACAO" />
+        </property>
+        <property name="personalizacao" type="string">
+            <column name="PERSONALIZACAO" length="0" />
+        </property>
+        <property name="documentacao" type="string">
+            <column name="DOCUMENTACAO" length="200" />
+        </property>
+        <property name="liberou" type="string">
+            <column name="LIBEROU" length="2" />
+        </property>
+        <property name="dtRelease" type="timestamp">
+            <column name="DT_RELEASE" length="19" />
+        </property>
+        <property name="userRelease" type="string">
+            <column name="USER_RELEASE" length="2" />
+        </property>
+        <property name="versaoBd" type="string">
+            <column name="VERSAO_BD" length="5" />
+        </property>
+    </class>
+</hibernate-mapping>

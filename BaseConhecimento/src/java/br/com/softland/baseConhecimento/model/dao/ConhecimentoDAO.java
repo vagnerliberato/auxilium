@@ -126,4 +126,42 @@ public class ConhecimentoDAO extends GenericDAO {
             return null;
         }
     }
+
+    public String BuscaTags(int idConhecimento) {
+        String palavrasChaves = "";
+        //List<TagBean> toReturn = new LinkedList<TagBean>();
+
+        try {
+
+            String querySQL = "SELECT T.NOME FROM TAG T "
+                    + "JOIN CONTROLETAG CT ON (T.ID_TAG = CT.ID_TAG) "
+                    + "WHERE CT.ID_CONHECIMENTO = ?";
+                       
+            ResultSet rs = executeQuery(querySQL, idConhecimento);
+
+            if (rs != null) {
+
+                while (rs.next()) {
+
+                    //TagBean tag = new TagBean();
+                    if(palavrasChaves != ""){
+                       palavrasChaves = palavrasChaves + " - " + rs.getString("NOME");
+                    }else
+                       palavrasChaves = rs.getString("NOME");
+                    //tag.setNome(rs.getString("NOME"));
+                    
+                    //toReturn.add(tag);
+                }
+
+            } else {
+                return null;
+            }
+
+            rs.close();
+            return palavrasChaves;
+
+        } catch (Exception e) {
+            return null;
+        }
+    }
 }
