@@ -1,6 +1,7 @@
 package br.com.softland.baseConhecimento.controller;
 
 import br.com.softland.baseConhecimento.bean.ConhecimentoBean;
+import br.com.softland.baseConhecimento.bean.TagBean;
 import br.com.softland.baseConhecimento.global.Funcoes;
 import br.com.softland.baseConhecimento.model.connection.ConexaoAgenda;
 import br.com.softland.baseConhecimento.model.dao.ConhecimentoDAO;
@@ -11,11 +12,13 @@ import java.util.Date;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import org.primefaces.event.FileUploadEvent;
 
 @ManagedBean(name = "conhecimentoControl")
+@ViewScoped
 public class ConhecimentoController {
 
     private String idAnalista = null;
@@ -27,9 +30,33 @@ public class ConhecimentoController {
     private String sucesso = null;
     private int selecionado;
     private List<SelectItem> analistas = new ArrayList<SelectItem>();
+    private TagBean tag = new TagBean();
+    private List<TagBean> ListaTags = new ArrayList<TagBean>();
 
     public ConhecimentoController() {
         carregaAnalistas();
+    }
+
+    public TagBean getTag() {
+        return tag;
+    }
+
+    public List<TagBean> getListaTags() {
+        return ListaTags;
+    }
+    
+     public String NovaTag(){
+        this.tag = new TagBean();                 
+        
+        return null;
+    }
+
+    public void setListaTags(List<TagBean> ListaTags) {
+        this.ListaTags = ListaTags;
+    }
+    
+    public void setTag(TagBean tag) {
+        this.tag = tag;
     }
 
     public int getSelecionado() {
@@ -158,6 +185,7 @@ public class ConhecimentoController {
                 novo.setCampo(Funcoes.geraCampo(getIdAnalista()));
                 novo.setVisual(0);
                 novo.setArquivo(getArquivo());
+                novo.setTags(ListaTags);
 
                 ConhecimentoDAO dao = new ConhecimentoDAO();
                 int gravacao = dao.addConhecimento(novo);
@@ -186,5 +214,6 @@ public class ConhecimentoController {
         this.referencia = null;
         this.fato = null;
         this.esclarecimento = null;
-    }
+        this.ListaTags.removeAll(ListaTags);
+    }   
 }

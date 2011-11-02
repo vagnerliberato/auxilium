@@ -1,8 +1,10 @@
 package br.com.softland.baseConhecimento.controller;
 
 import br.com.softland.baseConhecimento.bean.ConhecimentoBean;
+import br.com.softland.baseConhecimento.bean.TagBean;
 import br.com.softland.baseConhecimento.model.dao.ConhecimentoDAO;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -21,13 +23,23 @@ public class PesquisaController {
     private String previa = null;
     private String erro = null;
     private String msg = null;
+    private String nomeTags = null;
 
     public ConhecimentoBean getSelecao() {
         return selecao;
     }
 
     public void setSelecao(ConhecimentoBean selecao) {
+        montaTags(selecao);
         this.selecao = selecao;
+    }
+
+    public String getNomeTags() {
+        return nomeTags;
+    }
+
+    public void setNomeTags(String nomeTags) {
+        this.nomeTags = nomeTags;
     }
 
     public String getMsg() {
@@ -102,9 +114,30 @@ public class PesquisaController {
         return lista;
     }
 
+    public String montaTags(ConhecimentoBean conhecimento) {
+
+        try {
+            ConhecimentoDAO dao = new ConhecimentoDAO();
+
+            nomeTags = dao.BuscaTags(conhecimento.getId_Conhecimento());
+
+            if (nomeTags != null) {
+                return nomeTags;
+            } else {
+                return null;
+            }
+
+        } catch (Exception e) {
+            setErro("Erro-Fatal", e.getMessage());
+            return null;
+        }
+    }
+
     public List<ConhecimentoBean> carregaPesquisa() {
 
-        if (getPesquisa().isEmpty()) { return null; }
+        if (getPesquisa().isEmpty()) {
+            return null;
+        }
 
         try {
             ConhecimentoDAO dao = new ConhecimentoDAO();
@@ -114,7 +147,7 @@ public class PesquisaController {
             if (dados == null) {
                 setMsg("Pesquisa", "Que pena, não foi encontrado nenhum resultado para sua"
                         + "sua pesquisa. \n Reescreva seu titulo e tente novamente.");
-                
+
                 return null;
             } else {
                 return this.dados;
@@ -136,11 +169,15 @@ public class PesquisaController {
     }
 
     public void updateConhecimento() {
-        try {
-            ConhecimentoDAO dao = new ConhecimentoDAO();
-            dao.updateConhecimento(this.getSelecao());
-        } catch (Exception erro) {
-            setErro("Erro-Fatal", erro.getMessage());
+
+        if (!"".equals(selecao.getFato()) && !"".equals(selecao.getEsclarecimento()) && !"".equals(selecao.getReferencia())) {
+            try {
+                ConhecimentoDAO dao = new ConhecimentoDAO();
+
+                dao.updateConhecimento(this.getSelecao());
+            } catch (Exception erro) {
+                setErro("Erro-Fatal", erro.getMessage());
+            }
         }
     }
 }
