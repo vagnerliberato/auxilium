@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 01/11/2011 21:54:22 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="br.com.softland.baseConhecimento.entity.Visita" table="VISITA">
+        <id name="codigo" type="string">
+            <column name="CODIGO" length="2" />
+            <generator class="assigned" />
+        </id>
+        <property name="descricao" type="string">
+            <column name="DESCRICAO" length="30" />
+        </property>
+    </class>
+</hibernate-mapping>
