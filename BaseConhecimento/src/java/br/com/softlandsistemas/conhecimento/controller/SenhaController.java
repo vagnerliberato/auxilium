@@ -1,7 +1,7 @@
-package br.com.softland.baseConhecimento.controller;
+package br.com.softlandsistemas.conhecimento.controller;
 
-import br.com.softland.baseConhecimento.bean.AnalistaBean;
-import br.com.softland.baseConhecimento.model.dao.SenhaDAO;
+import br.com.softlandsistemas.conhecimento.model.bean.AnalistaBean;
+import br.com.softlandsistemas.conhecimento.model.dao.SenhaDAO;
 import javax.faces.bean.ManagedBean;
 import javax.faces.event.ActionEvent;
 

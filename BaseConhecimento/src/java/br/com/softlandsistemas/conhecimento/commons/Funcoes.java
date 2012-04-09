@@ -1,4 +1,4 @@
-package br.com.softland.baseConhecimento.global;
+package br.com.softlandsistemas.conhecimento.commons;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

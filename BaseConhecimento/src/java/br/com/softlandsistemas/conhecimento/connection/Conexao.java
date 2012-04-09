@@ -1,8 +1,10 @@
-package br.com.softland.baseConhecimento.model.connection;
+package br.com.softlandsistemas.conhecimento.connection;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
-public class ConexaoAgenda {
+public class Conexao {
 
     private static String driver = null;
     private static String url = null;

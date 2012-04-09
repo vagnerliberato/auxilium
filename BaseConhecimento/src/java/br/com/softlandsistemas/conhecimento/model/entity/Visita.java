@@ -1,4 +1,4 @@
-package br.com.softland.baseConhecimento.entity;
+package br.com.softlandsistemas.conhecimento.model.entity;
 // Generated 01/11/2011 21:54:20 by Hibernate Tools 3.2.1.GA
 
 
