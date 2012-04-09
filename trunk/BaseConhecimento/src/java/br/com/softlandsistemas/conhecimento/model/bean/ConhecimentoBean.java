@@ -1,4 +1,4 @@
-package br.com.softland.baseConhecimento.bean;
+package br.com.softlandsistemas.conhecimento.model.bean;
 
 import java.util.Date;
 import java.util.LinkedList;

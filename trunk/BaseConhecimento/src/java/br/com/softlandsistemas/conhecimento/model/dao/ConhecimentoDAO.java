@@ -1,7 +1,7 @@
-package br.com.softland.baseConhecimento.model.dao;
+package br.com.softlandsistemas.conhecimento.model.dao;
 
-import br.com.softland.baseConhecimento.bean.ConhecimentoBean;
-import br.com.softland.baseConhecimento.bean.TagBean;
+import br.com.softlandsistemas.conhecimento.model.bean.ConhecimentoBean;
+import br.com.softlandsistemas.conhecimento.model.bean.TagBean;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;

@@ -1,12 +1,12 @@
-package br.com.softland.baseConhecimento.model.dao;
+package br.com.softlandsistemas.conhecimento.model.dao;
 
-import br.com.softland.baseConhecimento.model.connection.ConexaoAgenda;
+import br.com.softlandsistemas.conhecimento.connection.Conexao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public abstract class GenericDAO extends ConexaoAgenda {
+public abstract class GenericDAO extends Conexao {
 
     public Statement getStatement() throws SQLException {
         return getConnection().createStatement();

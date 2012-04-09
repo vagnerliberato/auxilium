@@ -1,10 +1,8 @@
-package br.com.softland.baseConhecimento.controller;
+package br.com.softlandsistemas.conhecimento.controller;
 
-import br.com.softland.baseConhecimento.bean.ConhecimentoBean;
-import br.com.softland.baseConhecimento.bean.TagBean;
-import br.com.softland.baseConhecimento.model.dao.ConhecimentoDAO;
+import br.com.softlandsistemas.conhecimento.model.bean.ConhecimentoBean;
+import br.com.softlandsistemas.conhecimento.model.dao.ConhecimentoDAO;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;

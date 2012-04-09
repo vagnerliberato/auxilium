@@ -1,10 +1,10 @@
-package br.com.softland.baseConhecimento.controller;
+package br.com.softlandsistemas.conhecimento.controller;
 
-import br.com.softland.baseConhecimento.bean.ConhecimentoBean;
-import br.com.softland.baseConhecimento.bean.TagBean;
-import br.com.softland.baseConhecimento.global.Funcoes;
-import br.com.softland.baseConhecimento.model.connection.ConexaoAgenda;
-import br.com.softland.baseConhecimento.model.dao.ConhecimentoDAO;
+import br.com.softlandsistemas.conhecimento.commons.Funcoes;
+import br.com.softlandsistemas.conhecimento.connection.Conexao;
+import br.com.softlandsistemas.conhecimento.model.bean.ConhecimentoBean;
+import br.com.softlandsistemas.conhecimento.model.bean.TagBean;
+import br.com.softlandsistemas.conhecimento.model.dao.ConhecimentoDAO;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -79,7 +79,7 @@ public class ConhecimentoController {
         try {
             String query = "select codigo, descricao from analista order by descricao";
 
-            PreparedStatement stm = ConexaoAgenda.getConnection().prepareStatement(query);
+            PreparedStatement stm = Conexao.getConnection().prepareStatement(query);
 
             ResultSet result = stm.executeQuery();
 
